@@ -127,39 +127,124 @@
       white-space: nowrap;
     }
 
-    .theme-switcher {
-      display: inline-flex;
-      padding: 4px;
+    /* THEME DROPDOWN */
+    .theme-toggle {
+      position: relative;
+      display: inline-block;
+      font-size: 0.8rem;
+    }
+
+    .theme-toggle-button {
       border-radius: 999px;
       border: 1px solid var(--border);
       background: var(--bg-soft);
-      gap: 4px;
-      backdrop-filter: blur(10px);
-    }
-
-    .theme-switcher button {
-      border: none;
-      outline: none;
       padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       cursor: pointer;
-      background: transparent;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
       color: var(--text-muted);
+      backdrop-filter: blur(10px);
       transition:
-        background 180ms ease,
-        color 180ms ease,
-        box-shadow 180ms ease,
+        background 160ms ease,
+        border-color 160ms ease,
+        box-shadow 160ms ease,
         transform 120ms ease;
     }
 
-    .theme-switcher button.active {
-      background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
-      color: #0b1120;
-      box-shadow: 0 0 12px rgba(15, 23, 42, 0.6);
+    .theme-toggle-button:hover {
+      border-color: var(--accent-1);
+      box-shadow: 0 0 14px rgba(56, 189, 248, 0.3);
       transform: translateY(-1px);
+    }
+
+    .theme-label {
+      opacity: 0.8;
+    }
+
+    .theme-value {
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .theme-chevron {
+      font-size: 0.7rem;
+      opacity: 0.8;
+    }
+
+    .theme-menu {
+      position: absolute;
+      right: 0;
+      margin-top: 6px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      padding: 4px;
+      min-width: 160px;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.7);
+      opacity: 0;
+      transform: translateY(-4px);
+      pointer-events: none;
+      transition:
+        opacity 160ms ease,
+        transform 160ms ease;
+      z-index: 20;
+    }
+
+    .theme-toggle.open .theme-menu {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .theme-menu button {
+      width: 100%;
+      border: none;
+      background: transparent;
+      border-radius: 10px;
+      padding: 7px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      cursor: pointer;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .theme-menu button span.dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--border);
+    }
+
+    .theme-menu button[data-theme-select="dark"] span.dot {
+      background: #020617;
+    }
+    .theme-menu button[data-theme-select="bright"] span.dot {
+      background: #f9fafb;
+    }
+    .theme-menu button[data-theme-select="colorful"] span.dot {
+      background: linear-gradient(120deg, #22d3ee, #a855f7);
+    }
+
+    .theme-menu button:hover {
+      background: rgba(148, 163, 184, 0.12);
+      color: var(--text-main);
+    }
+
+    .theme-menu button.active {
+      background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
+      color: #020617;
+    }
+
+    .theme-menu button.active span.dot {
+      box-shadow: 0 0 8px rgba(15, 23, 42, 0.7);
     }
 
     /* HERO IMAGE (BIG GROUP) */
@@ -188,13 +273,6 @@
       width: 100%;
       height: auto;
       object-fit: cover;
-    }
-
-    .hero-note {
-      margin-top: 8px;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      text-align: right;
     }
 
     /* CHARACTERS SECTION */
@@ -402,27 +480,44 @@
   <main>
     <!-- HEADER -->
     <header class="top-bar">
-      <div class="brand">Doraemon Only</div>
-      <div class="theme-switcher">
-        <button data-theme-select="dark" class="active">Dark</button>
-        <button data-theme-select="bright">Bright</button>
-        <button data-theme-select="colorful">Colorful</button>
+      <div class="brand">Doraemon</div>
+
+      <div class="theme-toggle" id="themeToggle">
+        <button class="theme-toggle-button" id="themeToggleButton">
+          <span class="theme-label">Theme</span>
+          <span class="theme-value" id="currentThemeLabel">Dark</span>
+          <span class="theme-chevron">▾</span>
+        </button>
+        <div class="theme-menu" id="themeMenu">
+          <button data-theme-select="dark" class="active">
+            <span>Dark</span>
+            <span class="dot"></span>
+          </button>
+          <button data-theme-select="bright">
+            <span>Light</span>
+            <span class="dot"></span>
+          </button>
+          <button data-theme-select="colorful">
+            <span>Colorful</span>
+            <span class="dot"></span>
+          </button>
+        </div>
       </div>
     </header>
 
-    <!-- BIG GROUP IMAGE (REPLACE SRC WITH YOUR IMAGE) -->
+    <!-- BIG GROUP IMAGE (YOU WILL ADD THE REAL IMAGE FILE) -->
     <section class="hero-image">
       <div class="hero-frame">
         <div class="hero-frame-inner">
-          <!-- Replace this image with your own big Doraemon + friends picture -->
+          <!-- 
+            Put your big Doraemon group image at:
+            images/doraemon-group.jpg
+          -->
           <img
             src="images/doraemon-group.jpg"
             alt="Doraemon with Nobita, Shizuka, Gian, and Suneo"
           />
         </div>
-        <p class="hero-note">
-          Replace this image file (images/doraemon-group.jpg) with your own large Doraemon group picture.
-        </p>
       </div>
     </section>
 
@@ -592,17 +687,47 @@
   </main>
 
   <script>
-    // THEME SWITCHER
-    const themeButtons = document.querySelectorAll("[data-theme-select]");
+    // THEME DROPDOWN
     const body = document.body;
+    const themeToggle = document.getElementById("themeToggle");
+    const themeToggleButton = document.getElementById("themeToggleButton");
+    const themeMenu = document.getElementById("themeMenu");
+    const themeButtons = themeMenu.querySelectorAll("[data-theme-select]");
+    const currentThemeLabel = document.getElementById("currentThemeLabel");
+
+    function setTheme(theme) {
+      body.setAttribute("data-theme", theme);
+      themeButtons.forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.themeSelect === theme);
+      });
+      if (theme === "bright") {
+        currentThemeLabel.textContent = "Light";
+      } else if (theme === "colorful") {
+        currentThemeLabel.textContent = "Colorful";
+      } else {
+        currentThemeLabel.textContent = "Dark";
+      }
+    }
+
+    themeToggleButton.addEventListener("click", (e) => {
+      e.stopPropagation();
+      themeToggle.classList.toggle("open");
+    });
 
     themeButtons.forEach(button => {
-      button.addEventListener("click", () => {
+      button.addEventListener("click", (e) => {
+        e.stopPropagation();
         const theme = button.dataset.themeSelect;
-        body.setAttribute("data-theme", theme);
-        themeButtons.forEach(btn => btn.classList.toggle("active", btn === button));
+        setTheme(theme);
+        themeToggle.classList.remove("open");
       });
     });
+
+    document.addEventListener("click", () => {
+      themeToggle.classList.remove("open");
+    });
+
+    setTheme("dark");
 
     // AUDIO PLAYER (ONLY THESE 5 CHARACTERS)
     let currentAudio = null;
@@ -612,10 +737,8 @@
         currentAudio.pause();
         currentAudio.currentTime = 0;
       }
-
       const audio = document.getElementById(`audio-${id}`);
       if (!audio) return;
-
       currentAudio = audio;
       audio.play().catch(err => {
         console.error("Audio play error:", err);
