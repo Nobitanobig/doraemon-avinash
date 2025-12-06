@@ -57,7 +57,7 @@
       --accent-3: #a855f7;
     }
 
-    /* Character-based accent themes */
+    /* Character accent themes */
     body[data-character-theme="doraemon"] {
       --accent-1: #38bdf8;
       --accent-2: #0ea5e9;
@@ -194,7 +194,7 @@
       border: 1px solid var(--border);
       background: var(--surface);
       padding: 4px;
-      min-width: 160px;
+      min-width: 190px;
       box-shadow: 0 18px 40px rgba(15, 23, 42, 0.7);
       opacity: 0;
       transform: translateY(-4px);
@@ -207,6 +207,15 @@
       opacity: 1;
       transform: translateY(0);
       pointer-events: auto;
+    }
+
+    .theme-menu-group-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-muted);
+      padding: 4px 6px 2px;
+      opacity: 0.8;
     }
 
     .theme-menu button {
@@ -278,42 +287,6 @@
       font-size: 0.8rem;
     }
 
-    /* Character theme pills */
-    .character-themes {
-      display: flex;
-      gap: 4px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .character-theme-pill {
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      padding: 3px 8px;
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      cursor: pointer;
-      background: rgba(15, 23, 42, 0.7);
-      color: var(--text-muted);
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .character-theme-pill span.dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: currentColor;
-    }
-
-    .character-theme-pill.active {
-      background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
-      color: #020617;
-      border-color: transparent;
-    }
-
     .hero-image { margin-bottom: 18px; }
 
     .hero-frame {
@@ -344,7 +317,7 @@
       box-shadow: 0 10px 26px rgba(15, 23, 42, 0.5);
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
     }
 
     .song-header {
@@ -675,20 +648,33 @@
     .quiz-feedback.correct { color: #22c55e; }
     .quiz-feedback.incorrect { color: #f97373; }
 
-    .quiz-submit {
+    .quiz-submit,
+    .quiz-next {
       margin-top: 10px;
       border-radius: 999px;
       border: 1px solid var(--border);
-      background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
       padding: 7px 14px;
       font-size: 0.8rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       cursor: pointer;
-      color: #020617;
       display: inline-flex;
       align-items: center;
       gap: 6px;
+    }
+
+    .quiz-submit {
+      background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
+      color: #020617;
+    }
+
+    .quiz-next {
+      background: transparent;
+      color: var(--text-muted);
+    }
+
+    .quiz-next:hover {
+      background: rgba(148, 163, 184, 0.15);
     }
 
     .quiz-result {
@@ -696,6 +682,8 @@
       font-size: 0.9rem;
       color: var(--text-main);
     }
+
+    .hidden { display: none; }
 
     /* Gadget popup */
     .gadget-popup-backdrop {
@@ -720,6 +708,15 @@
       max-width: 360px;
       width: 90%;
       box-shadow: 0 18px 40px rgba(15, 23, 42, 0.8);
+    }
+
+    .gadget-image {
+      width: 100%;
+      border-radius: 14px;
+      margin-bottom: 8px;
+      object-fit: cover;
+      background: radial-gradient(circle at top, rgba(148, 163, 184, 0.25), transparent 60%);
+      min-height: 140px;
     }
 
     .gadget-title {
@@ -800,6 +797,7 @@
   <!-- Gadget popup -->
   <div class="gadget-popup-backdrop" id="gadgetBackdrop">
     <div class="gadget-popup">
+      <img id="gadgetImage" class="gadget-image" src="" alt="" />
       <div class="gadget-title">Random Gadget</div>
       <div class="gadget-name" id="gadgetName"></div>
       <div class="gadget-description" id="gadgetDescription"></div>
@@ -815,10 +813,11 @@
         <div class="theme-toggle" id="themeToggle">
           <button class="theme-toggle-button" id="themeToggleButton">
             <span class="theme-label">Theme</span>
-            <span class="theme-value" id="currentThemeLabel">Dark</span>
+            <span class="theme-value" id="currentThemeLabel">Dark · Doraemon</span>
             <span class="theme-chevron">▾</span>
           </button>
           <div class="theme-menu" id="themeMenu">
+            <div class="theme-menu-group-label">Base Theme</div>
             <button data-theme-select="dark" class="active">
               <span>Dark</span><span class="dot"></span>
             </button>
@@ -828,29 +827,24 @@
             <button data-theme-select="colorful">
               <span>Colorful</span><span class="dot"></span>
             </button>
+
+            <div class="theme-menu-group-label">Character Theme</div>
+            <button data-character-theme-select="doraemon" class="active">
+              <span>Doraemon</span><span class="dot"></span>
+            </button>
+            <button data-character-theme-select="nobita">
+              <span>Nobita</span><span class="dot"></span>
+            </button>
+            <button data-character-theme-select="shizuka">
+              <span>Shizuka</span><span class="dot"></span>
+            </button>
+            <button data-character-theme-select="gian">
+              <span>Gian</span><span class="dot"></span>
+            </button>
+            <button data-character-theme-select="suneo">
+              <span>Suneo</span><span class="dot"></span>
+            </button>
           </div>
-        </div>
-
-        <button class="small-button" id="cycleThemeButton">
-          <span class="icon">⟳</span><span>Switch Theme</span>
-        </button>
-
-        <div class="character-themes">
-          <button class="character-theme-pill active" data-character-theme="doraemon">
-            <span class="dot"></span><span>Doraemon</span>
-          </button>
-          <button class="character-theme-pill" data-character-theme="nobita">
-            <span class="dot"></span><span>Nobita</span>
-          </button>
-          <button class="character-theme-pill" data-character-theme="shizuka">
-            <span class="dot"></span><span>Shizuka</span>
-          </button>
-          <button class="character-theme-pill" data-character-theme="gian">
-            <span class="dot"></span><span>Gian</span>
-          </button>
-          <button class="character-theme-pill" data-character-theme="suneo">
-            <span class="dot"></span><span>Suneo</span>
-          </button>
         </div>
       </div>
     </header>
@@ -863,17 +857,14 @@
       </div>
     </section>
 
-    <!-- Theme song -->
+    <!-- Theme songs -->
     <section>
       <div class="song-panel">
         <div class="song-header">
-          <div class="song-title">Doraemon Theme Song</div>
+          <div class="song-title">Doraemon Theme Songs</div>
           <div class="song-controls">
-            <button class="song-button" id="doraemonSongMain">
-              <span class="icon">♪</span><span>Doraemon Song</span>
-            </button>
             <button class="song-button" id="playSong">
-              <span class="icon">▶</span><span>Play</span>
+              <span class="icon">▶</span><span>Play Theme</span>
             </button>
             <button class="song-button" id="stopSong">
               <span class="icon">■</span><span>Stop</span>
@@ -881,11 +872,16 @@
             <button class="song-speed" id="speedToggle">
               <span>Speed</span><span id="speedLabel">1x</span>
             </button>
+            <button class="song-button" id="doraemonSongMain">
+              <span class="icon">♪</span><span>Doraemon Song</span>
+            </button>
           </div>
         </div>
         <input type="range" id="songSeek" class="song-bar" min="0" max="0" value="0" step="0.01" />
-        <!-- Add your main song here -->
+        <!-- Main theme (with bar) -->
         <audio id="themeSong" src="audio/doraemon-theme.mp3"></audio>
+        <!-- Second Doraemon song -->
+        <audio id="themeSong2" src="audio/doraemon-song.mp3"></audio>
       </div>
     </section>
 
@@ -991,7 +987,7 @@
           <div class="quiz-feedback"></div>
         </div>
 
-        <div class="quiz-question" data-question-id="q2">
+        <div class="quiz-question hidden" data-question-id="q2">
           <p class="quiz-question-text">2. Who is Nobita&apos;s best friend from the future?</p>
           <div class="quiz-options">
             <label><input type="radio" name="q2" value="a" /> Gian</label>
@@ -1002,7 +998,7 @@
           <div class="quiz-feedback"></div>
         </div>
 
-        <div class="quiz-question" data-question-id="q3">
+        <div class="quiz-question hidden" data-question-id="q3">
           <p class="quiz-question-text">3. What special pocket does Doraemon have?</p>
           <div class="quiz-options">
             <label><input type="radio" name="q3" value="a" /> Magic pocket</label>
@@ -1013,7 +1009,7 @@
           <div class="quiz-feedback"></div>
         </div>
 
-        <div class="quiz-question" data-question-id="q4">
+        <div class="quiz-question hidden" data-question-id="q4">
           <p class="quiz-question-text">4. Which gadget helps Doraemon and friends fly?</p>
           <div class="quiz-options">
             <label><input type="radio" name="q4" value="a" /> Bamboo Copter (Take-copter)</label>
@@ -1024,7 +1020,7 @@
           <div class="quiz-feedback"></div>
         </div>
 
-        <div class="quiz-question" data-question-id="q5">
+        <div class="quiz-question hidden" data-question-id="q5">
           <p class="quiz-question-text">5. Who is usually scared of Gian&apos;s singing?</p>
           <div class="quiz-options">
             <label><input type="radio" name="q5" value="a" /> Only Suneo</label>
@@ -1035,7 +1031,7 @@
           <div class="quiz-feedback"></div>
         </div>
 
-        <div class="quiz-question" data-question-id="q6">
+        <div class="quiz-question hidden" data-question-id="q6">
           <p class="quiz-question-text">6. What is Shizuka known for?</p>
           <div class="quiz-options">
             <label><input type="radio" name="q6" value="a" /> Being lazy</label>
@@ -1046,7 +1042,7 @@
           <div class="quiz-feedback"></div>
         </div>
 
-        <div class="quiz-question" data-question-id="q7">
+        <div class="quiz-question hidden" data-question-id="q7">
           <p class="quiz-question-text">7. Which character loves to show off new toys and trips?</p>
           <div class="quiz-options">
             <label><input type="radio" name="q7" value="a" /> Nobita</label>
@@ -1057,7 +1053,7 @@
           <div class="quiz-feedback"></div>
         </div>
 
-        <div class="quiz-question" data-question-id="q8">
+        <div class="quiz-question hidden" data-question-id="q8">
           <p class="quiz-question-text">8. Which gadget lets them go anywhere by stepping through it?</p>
           <div class="quiz-options">
             <label><input type="radio" name="q8" value="a" /> Anywhere Door</label>
@@ -1068,7 +1064,7 @@
           <div class="quiz-feedback"></div>
         </div>
 
-        <div class="quiz-question" data-question-id="q9">
+        <div class="quiz-question hidden" data-question-id="q9">
           <p class="quiz-question-text">9. Why was Doraemon sent back in time to Nobita?</p>
           <div class="quiz-options">
             <label><input type="radio" name="q9" value="a" /> To take Nobita to the future</label>
@@ -1079,7 +1075,7 @@
           <div class="quiz-feedback"></div>
         </div>
 
-        <div class="quiz-question" data-question-id="q10">
+        <div class="quiz-question hidden" data-question-id="q10">
           <p class="quiz-question-text">10. Who often teams up with Gian but is smaller and stylish?</p>
           <div class="quiz-options">
             <label><input type="radio" name="q10" value="a" /> Suneo</label>
@@ -1090,7 +1086,8 @@
           <div class="quiz-feedback"></div>
         </div>
 
-        <button class="quiz-submit" id="quizSubmit">Submit Answers</button>
+        <button class="quiz-next" id="nextQuestionButton">Next Question</button>
+        <button class="quiz-submit hidden" id="quizSubmit">Submit Answers</button>
         <div class="quiz-result" id="quizResult"></div>
       </div>
     </section>
@@ -1166,7 +1163,7 @@
     </footer>
   </main>
 
-  <!-- UI / feedback sounds (add your own mp3 files in /audio) -->
+  <!-- UI / feedback sounds (add your own mp3s in /audio) -->
   <audio id="uiClick" src="audio/ui-click.mp3"></audio>
   <audio id="quizSuccess" src="audio/quiz-success.mp3"></audio>
 
@@ -1217,7 +1214,6 @@
       tick();
     })();
 
-    // ui click sound
     const uiClickEl = document.getElementById("uiClick");
     function playUIClick() {
       if (!uiClickEl) return;
@@ -1225,20 +1221,38 @@
       uiClickEl.play().catch(() => {});
     }
 
-    // theme dropdown
+    // Theme dropdown
     const themeToggle = document.getElementById("themeToggle");
     const themeToggleButton = document.getElementById("themeToggleButton");
     const themeMenu = document.getElementById("themeMenu");
     const themeButtons = themeMenu.querySelectorAll("[data-theme-select]");
+    const characterThemeButtons = themeMenu.querySelectorAll("[data-character-theme-select]");
     const currentThemeLabel = document.getElementById("currentThemeLabel");
+
+    function refreshThemeLabel() {
+      const base = body.getAttribute("data-theme") || "dark";
+      const char = body.getAttribute("data-character-theme") || "doraemon";
+      const baseLabel =
+        base === "bright" ? "Light" :
+        base === "colorful" ? "Colorful" : "Dark";
+      const charLabel = char.charAt(0).toUpperCase() + char.slice(1);
+      currentThemeLabel.textContent = `${baseLabel} · ${charLabel}`;
+    }
 
     function setTheme(theme) {
       body.setAttribute("data-theme", theme);
       themeButtons.forEach(btn => {
         btn.classList.toggle("active", btn.dataset.themeSelect === theme);
       });
-      currentThemeLabel.textContent =
-        theme === "bright" ? "Light" : theme === "colorful" ? "Colorful" : "Dark";
+      refreshThemeLabel();
+    }
+
+    function setCharacterTheme(theme) {
+      body.setAttribute("data-character-theme", theme);
+      characterThemeButtons.forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.characterThemeSelect === theme);
+      });
+      refreshThemeLabel();
     }
 
     themeToggleButton.addEventListener("click", (e) => {
@@ -1256,36 +1270,21 @@
       });
     });
 
+    characterThemeButtons.forEach(button => {
+      button.addEventListener("click", (e) => {
+        e.stopPropagation();
+        setCharacterTheme(button.dataset.characterThemeSelect);
+        themeToggle.classList.remove("open");
+        playUIClick();
+      });
+    });
+
     document.addEventListener("click", () => {
       themeToggle.classList.remove("open");
     });
 
     setTheme("dark");
-
-    // cycle theme button
-    const themeOrder = ["dark", "bright", "colorful"];
-    let themeIndex = 0;
-    const cycleThemeButton = document.getElementById("cycleThemeButton");
-    cycleThemeButton.addEventListener("click", () => {
-      themeIndex = (themeIndex + 1) % themeOrder.length;
-      setTheme(themeOrder[themeIndex]);
-      playUIClick();
-    });
-
-    // character theme pills
-    const characterThemePills = document.querySelectorAll(".character-theme-pill");
-    function setCharacterTheme(theme) {
-      body.setAttribute("data-character-theme", theme);
-      characterThemePills.forEach(pill => {
-        pill.classList.toggle("active", pill.dataset.characterTheme === theme);
-      });
-    }
-    characterThemePills.forEach(pill => {
-      pill.addEventListener("click", () => {
-        setCharacterTheme(pill.dataset.characterTheme);
-        playUIClick();
-      });
-    });
+    setCharacterTheme("doraemon");
 
     // character audio + glow
     let currentVoiceAudio = null;
@@ -1325,8 +1324,9 @@
       });
     });
 
-    // theme song controls
+    // theme songs
     const themeSong = document.getElementById("themeSong");
+    const themeSong2 = document.getElementById("themeSong2");
     const playSongBtn = document.getElementById("playSong");
     const stopSongBtn = document.getElementById("stopSong");
     const speedToggleBtn = document.getElementById("speedToggle");
@@ -1334,7 +1334,20 @@
     const songSeek = document.getElementById("songSeek");
     const doraemonSongMain = document.getElementById("doraemonSongMain");
     let isFast = false;
-    let isMainPlaying = false;
+
+    function stopAllSongs() {
+      if (themeSong) {
+        themeSong.pause();
+        themeSong.currentTime = 0;
+        themeSong.playbackRate = 1.0;
+      }
+      if (themeSong2) {
+        themeSong2.pause();
+        themeSong2.currentTime = 0;
+      }
+      isFast = false;
+      speedLabel.textContent = "1x";
+    }
 
     function ensureSongDuration() {
       if (themeSong && themeSong.duration && !isNaN(themeSong.duration)) {
@@ -1344,42 +1357,51 @@
 
     playSongBtn.addEventListener("click", () => {
       playUIClick();
+      if (!themeSong) return;
+      if (themeSong2) {
+        themeSong2.pause();
+      }
       themeSong.play().catch(err => console.error("Theme play error:", err));
-      isMainPlaying = true;
     });
 
     stopSongBtn.addEventListener("click", () => {
       playUIClick();
-      themeSong.pause();
-      themeSong.currentTime = 0;
-      isMainPlaying = false;
-    });
-
-    doraemonSongMain.addEventListener("click", () => {
-      playUIClick();
-      if (themeSong.paused) {
-        themeSong.play().catch(err => console.error("Theme play error:", err));
-        isMainPlaying = true;
-      } else {
-        themeSong.pause();
-        isMainPlaying = false;
-      }
+      stopAllSongs();
     });
 
     speedToggleBtn.addEventListener("click", () => {
       playUIClick();
+      if (!themeSong) return;
       isFast = !isFast;
       themeSong.playbackRate = isFast ? 1.5 : 1.0;
       speedLabel.textContent = isFast ? "1.5x" : "1x";
     });
 
-    themeSong.addEventListener("loadedmetadata", ensureSongDuration);
-    themeSong.addEventListener("timeupdate", () => {
-      ensureSongDuration();
-      songSeek.value = themeSong.currentTime;
+    doraemonSongMain.addEventListener("click", () => {
+      playUIClick();
+      if (!themeSong2) return;
+      if (!themeSong2.paused) {
+        themeSong2.pause();
+        return;
+      }
+      // stop main theme
+      if (themeSong) {
+        themeSong.pause();
+      }
+      themeSong2.currentTime = 0;
+      themeSong2.play().catch(err => console.error("Second song play error:", err));
     });
 
+    if (themeSong) {
+      themeSong.addEventListener("loadedmetadata", ensureSongDuration);
+      themeSong.addEventListener("timeupdate", () => {
+        ensureSongDuration();
+        songSeek.value = themeSong.currentTime;
+      });
+    }
+
     songSeek.addEventListener("input", () => {
+      if (!themeSong) return;
       themeSong.currentTime = songSeek.value;
     });
 
@@ -1391,39 +1413,47 @@
       quizSection.scrollIntoView({ behavior: "smooth", block: "start" });
     });
 
-    // random gadget popup
+    // random gadget popup with images
     const gadgets = [
       {
         name: "Anywhere Door",
         description: "A door that opens to any place you imagine. Just think and step through.",
+        image: "images/gadgets/anywhere-door.png"
       },
       {
         name: "Take-copter",
         description: "A small propeller that lets you fly when attached to your head.",
+        image: "images/gadgets/take-copter.png"
       },
       {
         name: "Time Machine",
         description: "A machine hidden in Nobita's desk drawer that travels to past or future.",
+        image: "images/gadgets/time-machine.png"
       },
       {
         name: "Small Light",
         description: "A light that shrinks anything it shines on, from big buildings to tiny toys.",
+        image: "images/gadgets/small-light.png"
       },
       {
         name: "Big Light",
         description: "The opposite of the Small Light, it enlarges objects to huge sizes.",
+        image: "images/gadgets/big-light.png"
       },
       {
         name: "Translation Jelly",
         description: "A jelly that lets you understand and speak any language after eating it.",
+        image: "images/gadgets/translation-jelly.png"
       },
       {
         name: "Memory Bread",
         description: "Bread that copies written words into your memory when you eat it.",
+        image: "images/gadgets/memory-bread.png"
       },
       {
         name: "Anywhere Spray",
         description: "Spray that turns any surface into a temporary portal to another spot.",
+        image: "images/gadgets/anywhere-spray.png"
       }
     ];
 
@@ -1431,12 +1461,20 @@
     const gadgetBackdrop = document.getElementById("gadgetBackdrop");
     const gadgetName = document.getElementById("gadgetName");
     const gadgetDescription = document.getElementById("gadgetDescription");
+    const gadgetImage = document.getElementById("gadgetImage");
     const gadgetClose = document.getElementById("gadgetClose");
 
     function showRandomGadget() {
       const g = gadgets[Math.floor(Math.random() * gadgets.length)];
       gadgetName.textContent = g.name;
       gadgetDescription.textContent = g.description;
+      if (g.image) {
+        gadgetImage.src = g.image;
+        gadgetImage.alt = g.name;
+        gadgetImage.style.display = "block";
+      } else {
+        gadgetImage.style.display = "none";
+      }
       gadgetBackdrop.classList.add("active");
     }
 
@@ -1475,12 +1513,30 @@
     const quizBestScoreEl = document.getElementById("quizBestScore");
     const quizSubmit = document.getElementById("quizSubmit");
     const quizResult = document.getElementById("quizResult");
+    const nextQuestionButton = document.getElementById("nextQuestionButton");
     const quizSuccessEl = document.getElementById("quizSuccess");
 
     function playQuizSuccess() {
       if (!quizSuccessEl) return;
       quizSuccessEl.currentTime = 0;
       quizSuccessEl.play().catch(() => {});
+    }
+
+    const quizQuestions = Array.from(document.querySelectorAll(".quiz-question"));
+    let currentQuestionIndex = 0;
+
+    function showQuestion(index) {
+      quizQuestions.forEach((q, i) => {
+        q.classList.toggle("hidden", i !== index);
+      });
+      // hide submit until last question
+      if (index === quizQuestions.length - 1) {
+        quizSubmit.classList.remove("hidden");
+        nextQuestionButton.classList.add("hidden");
+      } else {
+        quizSubmit.classList.add("hidden");
+        nextQuestionButton.classList.remove("hidden");
+      }
     }
 
     function updateQuizProgress() {
@@ -1491,7 +1547,7 @@
         if (selected) answered++;
       });
       quizProgressText.textContent = `Answered ${answered} / ${total}`;
-      const percent = (answered / total) * 100;
+      const percent = ((currentQuestionIndex + 1) / total) * 100;
       quizProgressFill.style.width = `${percent}%`;
     }
 
@@ -1524,6 +1580,22 @@
       });
     });
 
+    nextQuestionButton.addEventListener("click", () => {
+      playUIClick();
+      const currentQuestion = quizQuestions[currentQuestionIndex];
+      const id = currentQuestion.dataset.questionId;
+      const selected = document.querySelector(`input[name='${id}']:checked`);
+      if (!selected) {
+        alert("Please select an answer first.");
+        return;
+      }
+      if (currentQuestionIndex < quizQuestions.length - 1) {
+        currentQuestionIndex++;
+        showQuestion(currentQuestionIndex);
+        updateQuizProgress();
+      }
+    });
+
     quizSubmit.addEventListener("click", () => {
       playUIClick();
       let score = 0;
@@ -1551,6 +1623,7 @@
       }
     });
 
+    showQuestion(currentQuestionIndex);
     updateQuizProgress();
     loadBestScore();
   </script>
