@@ -8,7 +8,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
 
   <style>
-    /* THEME VARIABLES */
     :root {
       --bg: #050816;
       --bg-soft: #0b1120;
@@ -58,11 +57,7 @@
       --accent-3: #a855f7;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -70,17 +65,11 @@
       color: var(--text-main);
       min-height: 100vh;
       padding: 16px;
-      transition:
-        background 260ms ease,
-        color 260ms ease;
+      transition: background 260ms ease, color 260ms ease;
     }
 
-    main {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
+    main { max-width: 1100px; margin: 0 auto; }
 
-    /* SIMPLE FUTURISTIC TOUCHES */
     .glow-orb {
       position: fixed;
       pointer-events: none;
@@ -101,7 +90,6 @@
       50% { transform: translate(40px, -40px); }
     }
 
-    /* HEADER */
     .top-bar {
       display: flex;
       align-items: center;
@@ -118,21 +106,12 @@
       padding: 8px 14px;
       border-radius: 999px;
       border: 1px solid var(--border);
-      background: linear-gradient(
-        120deg,
-        rgba(56, 189, 248, 0.16),
-        rgba(168, 85, 247, 0.06)
-      );
+      background: linear-gradient(120deg, rgba(56, 189, 248, 0.16), rgba(168, 85, 247, 0.06));
       backdrop-filter: blur(12px);
       white-space: nowrap;
     }
 
-    /* THEME DROPDOWN */
-    .theme-toggle {
-      position: relative;
-      display: inline-block;
-      font-size: 0.8rem;
-    }
+    .theme-toggle { position: relative; display: inline-block; font-size: 0.8rem; }
 
     .theme-toggle-button {
       border-radius: 999px;
@@ -148,11 +127,7 @@
       font-size: 0.72rem;
       color: var(--text-muted);
       backdrop-filter: blur(10px);
-      transition:
-        background 160ms ease,
-        border-color 160ms ease,
-        box-shadow 160ms ease,
-        transform 120ms ease;
+      transition: background 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 120ms ease;
     }
 
     .theme-toggle-button:hover {
@@ -161,19 +136,9 @@
       transform: translateY(-1px);
     }
 
-    .theme-label {
-      opacity: 0.8;
-    }
-
-    .theme-value {
-      font-weight: 600;
-      color: var(--text-main);
-    }
-
-    .theme-chevron {
-      font-size: 0.7rem;
-      opacity: 0.8;
-    }
+    .theme-label { opacity: 0.8; }
+    .theme-value { font-weight: 600; color: var(--text-main); }
+    .theme-chevron { font-size: 0.7rem; opacity: 0.8; }
 
     .theme-menu {
       position: absolute;
@@ -188,9 +153,7 @@
       opacity: 0;
       transform: translateY(-4px);
       pointer-events: none;
-      transition:
-        opacity 160ms ease,
-        transform 160ms ease;
+      transition: opacity 160ms ease, transform 160ms ease;
       z-index: 20;
     }
 
@@ -223,15 +186,9 @@
       background: var(--border);
     }
 
-    .theme-menu button[data-theme-select="dark"] span.dot {
-      background: #020617;
-    }
-    .theme-menu button[data-theme-select="bright"] span.dot {
-      background: #f9fafb;
-    }
-    .theme-menu button[data-theme-select="colorful"] span.dot {
-      background: linear-gradient(120deg, #22d3ee, #a855f7);
-    }
+    .theme-menu button[data-theme-select="dark"] span.dot { background: #020617; }
+    .theme-menu button[data-theme-select="bright"] span.dot { background: #f9fafb; }
+    .theme-menu button[data-theme-select="colorful"] span.dot { background: linear-gradient(120deg, #22d3ee, #a855f7); }
 
     .theme-menu button:hover {
       background: rgba(148, 163, 184, 0.12);
@@ -243,14 +200,7 @@
       color: #020617;
     }
 
-    .theme-menu button.active span.dot {
-      box-shadow: 0 0 8px rgba(15, 23, 42, 0.7);
-    }
-
-    /* HERO IMAGE (BIG GROUP) */
-    .hero-image {
-      margin-bottom: 22px;
-    }
+    .hero-image { margin-bottom: 18px; }
 
     .hero-frame {
       border-radius: 24px;
@@ -258,15 +208,10 @@
       background: var(--bg-soft);
       padding: 10px;
       overflow: hidden;
-      box-shadow:
-        0 14px 40px rgba(15, 23, 42, 0.6);
+      box-shadow: 0 14px 40px rgba(15, 23, 42, 0.6);
     }
 
-    .hero-frame-inner {
-      border-radius: 18px;
-      overflow: hidden;
-      position: relative;
-    }
+    .hero-frame-inner { border-radius: 18px; overflow: hidden; position: relative; }
 
     .hero-frame img {
       display: block;
@@ -275,9 +220,116 @@
       object-fit: cover;
     }
 
-    /* CHARACTERS SECTION */
-    section {
+    /* THEME SONG PANEL */
+    .song-panel {
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--surface);
       margin-bottom: 26px;
+      padding: 14px 14px 12px;
+      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.5);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .song-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .song-title {
+      font-family: "Orbitron", system-ui;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+    }
+
+    .song-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .song-button {
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-soft);
+      padding: 6px 11px;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-main);
+      transition: background 150ms ease, border-color 150ms ease, box-shadow 150ms ease, transform 120ms ease;
+    }
+
+    .song-button span.icon {
+      font-size: 0.75rem;
+    }
+
+    .song-button:hover {
+      background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
+      border-color: transparent;
+      color: #020617;
+      box-shadow: 0 0 14px rgba(56, 189, 248, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .song-speed {
+      border-radius: 999px;
+      border: 1px dashed var(--border);
+      background: transparent;
+      padding: 4px 10px;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .song-bar {
+      width: 100%;
+      -webkit-appearance: none;
+      appearance: none;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.4);
+      outline: none;
+    }
+
+    .song-bar::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
+      box-shadow: 0 0 8px rgba(56, 189, 248, 0.7);
+      cursor: pointer;
+      border: none;
+    }
+
+    section { margin-bottom: 26px; }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
     }
 
     .section-title {
@@ -286,7 +338,6 @@
       text-transform: uppercase;
       letter-spacing: 0.18em;
       color: var(--text-muted);
-      margin-bottom: 14px;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -298,6 +349,27 @@
       height: 1px;
       border-radius: 999px;
       background: linear-gradient(to right, var(--accent-1), transparent);
+    }
+
+    .quiz-jump-button {
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      padding: 6px 10px;
+      font-size: 0.75rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      cursor: pointer;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .quiz-jump-button:hover {
+      background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
+      color: #020617;
+      border-color: transparent;
     }
 
     .character-grid {
@@ -314,12 +386,8 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
-      align-items: stretch;
       box-shadow: 0 12px 30px rgba(15, 23, 42, 0.4);
-      transition:
-        transform 180ms ease,
-        box-shadow 180ms ease,
-        border-color 180ms ease;
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
     }
 
     .character-card:hover {
@@ -343,10 +411,7 @@
       text-transform: uppercase;
     }
 
-    .character-role {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
+    .character-role { font-size: 0.8rem; color: var(--text-muted); }
 
     .voice-button {
       margin-top: 4px;
@@ -356,19 +421,14 @@
       font-size: 0.8rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      background:
-        radial-gradient(circle at top left, rgba(56, 189, 248, 0.15), transparent 60%);
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.15), transparent 60%);
       color: var(--text-main);
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
-      transition:
-        background 160ms ease,
-        transform 120ms ease,
-        box-shadow 160ms ease,
-        border-color 160ms ease;
+      transition: background 160ms ease, transform 120ms ease, box-shadow 160ms ease, border-color 160ms ease;
     }
 
     .voice-button span.icon {
@@ -390,12 +450,6 @@
       transform: translateY(-1px);
     }
 
-    .voice-button:active {
-      transform: translateY(1px) scale(0.98);
-      box-shadow: none;
-    }
-
-    /* INFO SECTION */
     .info-grid {
       display: grid;
       gap: 18px;
@@ -444,7 +498,77 @@
       color: var(--text-main);
     }
 
-    /* FOOTER */
+    /* QUIZ */
+    .quiz-panel {
+      border-radius: var(--card-radius);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      padding: 16px;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.45);
+    }
+
+    .quiz-question {
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed rgba(148, 163, 184, 0.45);
+    }
+
+    .quiz-question:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .quiz-question-text {
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+    }
+
+    .quiz-options {
+      display: grid;
+      gap: 4px;
+      font-size: 0.86rem;
+    }
+
+    .quiz-options label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .quiz-options input[type="radio"] { accent-color: var(--accent-1); }
+
+    .quiz-feedback {
+      font-size: 0.8rem;
+      margin-top: 3px;
+      min-height: 14px;
+    }
+
+    .quiz-feedback.correct { color: #22c55e; }
+    .quiz-feedback.incorrect { color: #f97373; }
+
+    .quiz-submit {
+      margin-top: 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
+      padding: 7px 14px;
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      color: #020617;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .quiz-result {
+      margin-top: 8px;
+      font-size: 0.9rem;
+      color: var(--text-main);
+    }
+
     footer {
       margin-top: 20px;
       padding-top: 12px;
@@ -478,7 +602,6 @@
   <div class="glow-orb"></div>
 
   <main>
-    <!-- HEADER -->
     <header class="top-bar">
       <div class="brand">Doraemon</div>
 
@@ -490,136 +613,245 @@
         </button>
         <div class="theme-menu" id="themeMenu">
           <button data-theme-select="dark" class="active">
-            <span>Dark</span>
-            <span class="dot"></span>
+            <span>Dark</span><span class="dot"></span>
           </button>
           <button data-theme-select="bright">
-            <span>Light</span>
-            <span class="dot"></span>
+            <span>Light</span><span class="dot"></span>
           </button>
           <button data-theme-select="colorful">
-            <span>Colorful</span>
-            <span class="dot"></span>
+            <span>Colorful</span><span class="dot"></span>
           </button>
         </div>
       </div>
     </header>
 
-    <!-- BIG GROUP IMAGE (YOU WILL ADD THE REAL IMAGE FILE) -->
     <section class="hero-image">
       <div class="hero-frame">
         <div class="hero-frame-inner">
-          <!-- 
-            Put your big Doraemon group image at:
-            images/doraemon-group.jpg
-          -->
-          <img
-            src="images/doraemon-group.jpg"
-            alt="Doraemon with Nobita, Shizuka, Gian, and Suneo"
-          />
+          <img src="images/doraemon-group.jpg" alt="Doraemon with Nobita, Shizuka, Gian, and Suneo" />
         </div>
       </div>
     </section>
 
-    <!-- CHARACTERS WITH IMAGES + VOICES -->
+    <!-- THEME SONG -->
     <section>
-      <h2 class="section-title">Characters</h2>
+      <div class="song-panel">
+        <div class="song-header">
+          <div class="song-title">Doraemon Theme Song</div>
+          <div class="song-controls">
+            <button class="song-button" id="playSong">
+              <span class="icon">▶</span><span>Play</span>
+            </button>
+            <button class="song-button" id="stopSong">
+              <span class="icon">■</span><span>Stop</span>
+            </button>
+            <button class="song-speed" id="speedToggle">
+              <span>Speed</span><span id="speedLabel">1x</span>
+            </button>
+          </div>
+        </div>
+        <input type="range" id="songSeek" class="song-bar" min="0" max="0" value="0" step="0.01" />
+        <audio id="themeSong" src="audio/doraemon-theme.mp3"></audio>
+      </div>
+    </section>
+
+    <!-- CHARACTERS -->
+    <section>
+      <div class="section-header">
+        <h2 class="section-title">Characters</h2>
+        <button class="quiz-jump-button" id="quizJump">Doraemon Quiz</button>
+      </div>
+
       <div class="character-grid">
-        <!-- Doraemon -->
         <article class="character-card">
-          <img
-            class="character-image"
-            src="images/doraemon.png"
-            alt="Doraemon"
-          />
+          <img class="character-image" src="images/doraemon.png" alt="Doraemon" />
           <div>
             <div class="character-name">Doraemon</div>
             <div class="character-role">Robot cat from the 22nd century who helps Nobita with futuristic gadgets.</div>
           </div>
           <button class="voice-button" data-character="doraemon">
-            <span class="icon">▶</span>
-            <span>Play Voice</span>
+            <span class="icon">▶</span><span>Play Voice</span>
           </button>
           <audio id="audio-doraemon" src="audio/doraemon.mp3"></audio>
         </article>
 
-        <!-- Nobita -->
         <article class="character-card">
-          <img
-            class="character-image"
-            src="images/nobita.png"
-            alt="Nobita"
-          />
+          <img class="character-image" src="images/nobita.png" alt="Nobita" />
           <div>
             <div class="character-name">Nobita</div>
             <div class="character-role">A kind but lazy boy who often gets into trouble and relies on Doraemon.</div>
           </div>
           <button class="voice-button" data-character="nobita">
-            <span class="icon">▶</span>
-            <span>Play Voice</span>
+            <span class="icon">▶</span><span>Play Voice</span>
           </button>
           <audio id="audio-nobita" src="audio/nobita.mp3"></audio>
         </article>
 
-        <!-- Shizuka -->
         <article class="character-card">
-          <img
-            class="character-image"
-            src="images/shizuka.png"
-            alt="Shizuka"
-          />
+          <img class="character-image" src="images/shizuka.png" alt="Shizuka" />
           <div>
             <div class="character-name">Shizuka</div>
             <div class="character-role">Smart, gentle, and supportive; Nobita’s close friend and his main crush.</div>
           </div>
           <button class="voice-button" data-character="shizuka">
-            <span class="icon">▶</span>
-            <span>Play Voice</span>
+            <span class="icon">▶</span><span>Play Voice</span>
           </button>
           <audio id="audio-shizuka" src="audio/shizuka.mp3"></audio>
         </article>
 
-        <!-- Gian -->
         <article class="character-card">
-          <img
-            class="character-image"
-            src="images/gian.png"
-            alt="Gian"
-          />
+          <img class="character-image" src="images/gian.png" alt="Gian" />
           <div>
             <div class="character-name">Gian</div>
             <div class="character-role">Strong and loud, often bullies others but secretly cares about his friends.</div>
           </div>
           <button class="voice-button" data-character="gian">
-            <span class="icon">▶</span>
-            <span>Play Voice</span>
+            <span class="icon">▶</span><span>Play Voice</span>
           </button>
           <audio id="audio-gian" src="audio/gian.mp3"></audio>
         </article>
 
-        <!-- Suneo -->
         <article class="character-card">
-          <img
-            class="character-image"
-            src="images/suneo.png"
-            alt="Suneo"
-          />
+          <img class="character-image" src="images/suneo.png" alt="Suneo" />
           <div>
             <div class="character-name">Suneo</div>
             <div class="character-role">Rich, stylish, and a show-off, but still part of the core friend group.</div>
           </div>
           <button class="voice-button" data-character="suneo">
-            <span class="icon">▶</span>
-            <span>Play Voice</span>
+            <span class="icon">▶</span><span>Play Voice</span>
           </button>
           <audio id="audio-suneo" src="audio/suneo.mp3"></audio>
         </article>
       </div>
     </section>
 
-    <!-- INFORMATION SECTION -->
+    <!-- QUIZ -->
+    <section id="quizSection">
+      <div class="section-header">
+        <h2 class="section-title">Quiz</h2>
+      </div>
+      <div class="quiz-panel">
+        <div class="quiz-question" data-question-id="q1">
+          <p class="quiz-question-text">1. What is Doraemon&apos;s favourite food?</p>
+          <div class="quiz-options">
+            <label><input type="radio" name="q1" value="a" /> Sushi</label>
+            <label><input type="radio" name="q1" value="b" /> Dorayaki</label>
+            <label><input type="radio" name="q1" value="c" /> Pizza</label>
+            <label><input type="radio" name="q1" value="d" /> Ramen</label>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-question" data-question-id="q2">
+          <p class="quiz-question-text">2. Who is Nobita&apos;s best friend from the future?</p>
+          <div class="quiz-options">
+            <label><input type="radio" name="q2" value="a" /> Gian</label>
+            <label><input type="radio" name="q2" value="b" /> Suneo</label>
+            <label><input type="radio" name="q2" value="c" /> Doraemon</label>
+            <label><input type="radio" name="q2" value="d" /> Shizuka</label>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-question" data-question-id="q3">
+          <p class="quiz-question-text">3. What special pocket does Doraemon have?</p>
+          <div class="quiz-options">
+            <label><input type="radio" name="q3" value="a" /> Magic pocket</label>
+            <label><input type="radio" name="q3" value="b" /> 4D pocket</label>
+            <label><input type="radio" name="q3" value="c" /> Secret pocket</label>
+            <label><input type="radio" name="q3" value="d" /> Time pocket</label>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-question" data-question-id="q4">
+          <p class="quiz-question-text">4. Which gadget helps Doraemon and friends fly?</p>
+          <div class="quiz-options">
+            <label><input type="radio" name="q4" value="a" /> Bamboo Copter (Take-copter)</label>
+            <label><input type="radio" name="q4" value="b" /> Magic Shoes</label>
+            <label><input type="radio" name="q4" value="c" /> Air Board</label>
+            <label><input type="radio" name="q4" value="d" /> Rocket Bag</label>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-question" data-question-id="q5">
+          <p class="quiz-question-text">5. Who is usually scared of Gian&apos;s singing?</p>
+          <div class="quiz-options">
+            <label><input type="radio" name="q5" value="a" /> Only Suneo</label>
+            <label><input type="radio" name="q5" value="b" /> Only Nobita</label>
+            <label><input type="radio" name="q5" value="c" /> Almost everyone</label>
+            <label><input type="radio" name="q5" value="d" /> Only Doraemon</label>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-question" data-question-id="q6">
+          <p class="quiz-question-text">6. What is Shizuka known for?</p>
+          <div class="quiz-options">
+            <label><input type="radio" name="q6" value="a" /> Being lazy</label>
+            <label><input type="radio" name="q6" value="b" /> Being very strong</label>
+            <label><input type="radio" name="q6" value="c" /> Being kind and talented</label>
+            <label><input type="radio" name="q6" value="d" /> Being a prankster</label>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-question" data-question-id="q7">
+          <p class="quiz-question-text">7. Which character loves to show off new toys and trips?</p>
+          <div class="quiz-options">
+            <label><input type="radio" name="q7" value="a" /> Nobita</label>
+            <label><input type="radio" name="q7" value="b" /> Doraemon</label>
+            <label><input type="radio" name="q7" value="c" /> Suneo</label>
+            <label><input type="radio" name="q7" value="d" /> Shizuka</label>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-question" data-question-id="q8">
+          <p class="quiz-question-text">8. Which gadget lets them go anywhere by stepping through it?</p>
+          <div class="quiz-options">
+            <label><input type="radio" name="q8" value="a" /> Anywhere Door</label>
+            <label><input type="radio" name="q8" value="b" /> Magic Window</label>
+            <label><input type="radio" name="q8" value="c" /> Secret Tunnel</label>
+            <label><input type="radio" name="q8" value="d" /> Time Portal</label>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-question" data-question-id="q9">
+          <p class="quiz-question-text">9. Why was Doraemon sent back in time to Nobita?</p>
+          <div class="quiz-options">
+            <label><input type="radio" name="q9" value="a" /> To take Nobita to the future</label>
+            <label><input type="radio" name="q9" value="b" /> To improve Nobita&apos;s future life</label>
+            <label><input type="radio" name="q9" value="c" /> To find a lost gadget</label>
+            <label><input type="radio" name="q9" value="d" /> To be Nobita&apos;s teacher</label>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-question" data-question-id="q10">
+          <p class="quiz-question-text">10. Who often teams up with Gian but is smaller and stylish?</p>
+          <div class="quiz-options">
+            <label><input type="radio" name="q10" value="a" /> Suneo</label>
+            <label><input type="radio" name="q10" value="b" /> Nobita</label>
+            <label><input type="radio" name="q10" value="c" /> Doraemon</label>
+            <label><input type="radio" name="q10" value="d" /> Shizuka</label>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <button class="quiz-submit" id="quizSubmit">Submit Answers</button>
+        <div class="quiz-result" id="quizResult"></div>
+      </div>
+    </section>
+
+    <!-- INFO -->
     <section>
-      <h2 class="section-title">Information</h2>
+      <div class="section-header">
+        <h2 class="section-title">Information</h2>
+      </div>
+
       <div class="info-grid">
         <article class="panel">
           <h3>What Is Doraemon?</h3>
@@ -678,7 +910,6 @@
       </div>
     </section>
 
-    <!-- FOOTER -->
     <footer>
       <div class="footer-credit">
         <span>Made With <span class="heart">❤️</span> By Avinash Gupta!</span>
@@ -687,7 +918,7 @@
   </main>
 
   <script>
-    // THEME DROPDOWN
+    // Theme dropdown
     const body = document.body;
     const themeToggle = document.getElementById("themeToggle");
     const themeToggleButton = document.getElementById("themeToggleButton");
@@ -700,13 +931,8 @@
       themeButtons.forEach(btn => {
         btn.classList.toggle("active", btn.dataset.themeSelect === theme);
       });
-      if (theme === "bright") {
-        currentThemeLabel.textContent = "Light";
-      } else if (theme === "colorful") {
-        currentThemeLabel.textContent = "Colorful";
-      } else {
-        currentThemeLabel.textContent = "Dark";
-      }
+      currentThemeLabel.textContent =
+        theme === "bright" ? "Light" : theme === "colorful" ? "Colorful" : "Dark";
     }
 
     themeToggleButton.addEventListener("click", (e) => {
@@ -717,8 +943,7 @@
     themeButtons.forEach(button => {
       button.addEventListener("click", (e) => {
         e.stopPropagation();
-        const theme = button.dataset.themeSelect;
-        setTheme(theme);
+        setTheme(button.dataset.themeSelect);
         themeToggle.classList.remove("open");
       });
     });
@@ -729,28 +954,122 @@
 
     setTheme("dark");
 
-    // AUDIO PLAYER (ONLY THESE 5 CHARACTERS)
-    let currentAudio = null;
-
+    // Character audio
+    let currentVoiceAudio = null;
     function playVoice(id) {
-      if (currentAudio) {
-        currentAudio.pause();
-        currentAudio.currentTime = 0;
+      if (currentVoiceAudio) {
+        currentVoiceAudio.pause();
+        currentVoiceAudio.currentTime = 0;
       }
       const audio = document.getElementById(`audio-${id}`);
       if (!audio) return;
-      currentAudio = audio;
-      audio.play().catch(err => {
-        console.error("Audio play error:", err);
-      });
+      currentVoiceAudio = audio;
+      audio.play().catch(err => console.error("Audio play error:", err));
     }
 
     document.querySelectorAll(".voice-button").forEach(button => {
       button.addEventListener("click", () => {
-        const id = button.dataset.character;
-        playVoice(id);
+        playVoice(button.dataset.character);
       });
+    });
+
+    // Theme song controls
+    const themeSong = document.getElementById("themeSong");
+    const playSongBtn = document.getElementById("playSong");
+    const stopSongBtn = document.getElementById("stopSong");
+    const speedToggleBtn = document.getElementById("speedToggle");
+    const speedLabel = document.getElementById("speedLabel");
+    const songSeek = document.getElementById("songSeek");
+    let isFast = false;
+
+    playSongBtn.addEventListener("click", () => {
+      themeSong.play().catch(err => console.error("Theme play error:", err));
+    });
+
+    stopSongBtn.addEventListener("click", () => {
+      themeSong.pause();
+      themeSong.currentTime = 0;
+    });
+
+    speedToggleBtn.addEventListener("click", () => {
+      isFast = !isFast;
+      themeSong.playbackRate = isFast ? 1.5 : 1.0;
+      speedLabel.textContent = isFast ? "1.5x" : "1x";
+    });
+
+    themeSong.addEventListener("loadedmetadata", () => {
+      songSeek.max = themeSong.duration || 0;
+    });
+
+    themeSong.addEventListener("timeupdate", () => {
+      if (!songSeek.max) songSeek.max = themeSong.duration || 0;
+      songSeek.value = themeSong.currentTime;
+    });
+
+    songSeek.addEventListener("input", () => {
+      themeSong.currentTime = songSeek.value;
+    });
+
+    // Quiz jump
+    const quizJump = document.getElementById("quizJump");
+    const quizSection = document.getElementById("quizSection");
+    quizJump.addEventListener("click", () => {
+      quizSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    // Quiz logic
+    const quizConfig = {
+      q1: { correct: "b", correctMessage: "Sweet choice! Dorayaki is perfectly right." },
+      q2: { correct: "c", correctMessage: "Yes! Doraemon is Nobita's best friend from the future." },
+      q3: { correct: "b", correctMessage: "Correct, the famous 4D pocket!" },
+      q4: { correct: "a", correctMessage: "Exactly, the Bamboo Copter makes everyone fly." },
+      q5: { correct: "c", correctMessage: "Right, almost everyone fears that voice." },
+      q6: { correct: "c", correctMessage: "Yes, Shizuka is kind and talented." },
+      q7: { correct: "c", correctMessage: "Correct, Suneo loves to show off." },
+      q8: { correct: "a", correctMessage: "Anywhere Door is spot on." },
+      q9: { correct: "b", correctMessage: "Right, he wants to improve Nobita's future." },
+      q10: { correct: "a", correctMessage: "Yes, stylish little Suneo!" }
+    };
+
+    document.querySelectorAll(".quiz-question input[type='radio']").forEach(input => {
+      input.addEventListener("change", (e) => {
+        const questionEl = e.target.closest(".quiz-question");
+        const id = questionEl.dataset.questionId;
+        const config = quizConfig[id];
+        const feedback = questionEl.querySelector(".quiz-feedback");
+        if (!config || !feedback) return;
+        if (e.target.value === config.correct) {
+          feedback.textContent = config.correctMessage;
+          feedback.classList.add("correct");
+          feedback.classList.remove("incorrect");
+        } else {
+          feedback.textContent = "Not quite, but keep going!";
+          feedback.classList.remove("correct");
+          feedback.classList.add("incorrect");
+        }
+      });
+    });
+
+    const quizSubmit = document.getElementById("quizSubmit");
+    const quizResult = document.getElementById("quizResult");
+
+    quizSubmit.addEventListener("click", () => {
+      let score = 0;
+      Object.entries(quizConfig).forEach(([id, cfg]) => {
+        const selected = document.querySelector(`input[name='${id}']:checked`);
+        if (selected && selected.value === cfg.correct) score++;
+      });
+
+      let rating;
+      if (score === 10) rating = "True Doraemon Fan! You know every gadget and friend.";
+      else if (score >= 8) rating = "Future Gadget Super Fan – almost perfect!";
+      else if (score >= 5) rating = "Casual Doraemon Viewer – keep watching more episodes.";
+      else if (score >= 2) rating = "You know a little. Doraemon is waiting for more adventures with you.";
+      else rating = "Please watch Doraemon! A whole world of gadgets is waiting.";
+
+      quizResult.textContent = `You scored ${score}/10 – ${rating}`;
     });
   </script>
 </body>
 </html>
+```0
