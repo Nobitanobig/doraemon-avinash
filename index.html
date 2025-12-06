@@ -1,479 +1,1802 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<title>Doraemon</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" />
+  <title>Doraemon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
 
-<style>
-:root{
-  --bg:#050816;
-  --surface:#0b1120;
-  --text:#e5e7eb;
-  --muted:#9ca3af;
-  --accent:#38bdf8;
-  --card:#0f172a;
-}
-body{
-  margin:0;
-  font-family:Inter, sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  padding:16px;
-}
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-soft: #0b1120;
+      --surface: #020617;
+      --border: rgba(148, 163, 184, 0.5);
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --accent-1: #38bdf8;
+      --accent-2: #a855f7;
+      --accent-3: #f97316;
+      --card-radius: 18px;
+    }
 
-/* ---------- HEADER ---------- */
-.topbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:16px;
-}
-.brand{
-  font-family:Orbitron;
-  font-size:1.5rem;
-  letter-spacing:0.15em;
-  padding:6px 18px;
-  border-radius:20px;
-  border:1px solid rgba(255,255,255,0.1);
-  background:rgba(255,255,255,0.03);
-}
-.menu-btn{
-  border:none;
-  cursor:pointer;
-  background:rgba(255,255,255,0.08);
-  padding:8px 12px;
-  border-radius:10px;
-  color:var(--text);
-  font-size:.9rem;
-}
+    body[data-theme="dark"] {
+      --bg: #020617;
+      --bg-soft: #020617;
+      --surface: #020617;
+      --border: rgba(148, 163, 184, 0.4);
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --accent-1: #38bdf8;
+      --accent-2: #a855f7;
+      --accent-3: #22c55e;
+    }
 
-/* ---------- SLIDING MENU ---------- */
-.menu-panel{
-  position:fixed;
-  top:0; right:-260px;
-  width:240px;
-  height:100%;
-  background:rgba(15,23,42,0.96);
-  border-left:1px solid rgba(255,255,255,0.1);
-  backdrop-filter:blur(12px);
-  transition:0.3s ease;
-  padding:20px;
-  z-index:40;
-}
-.menu-panel.open{
-  right:0;
-}
-.menu-title{
-  font-family:Orbitron;
-  letter-spacing:0.15em;
-  margin-bottom:10px;
-}
-.menu-option{
-  display:block;
-  padding:10px;
-  margin-bottom:8px;
-  background:rgba(255,255,255,0.05);
-  border-radius:10px;
-  cursor:pointer;
-}
+    body[data-theme="bright"] {
+      --bg: #f3f4f6;
+      --bg-soft: #e5e7eb;
+      --surface: #ffffff;
+      --border: rgba(148, 163, 184, 0.6);
+      --text-main: #111827;
+      --text-muted: #4b5563;
+      --accent-1: #2563eb;
+      --accent-2: #ec4899;
+      --accent-3: #f97316;
+    }
 
-/* ---------- HERO IMAGE ---------- */
-.hero{
-  border-radius:20px;
-  overflow:hidden;
-  border:1px solid rgba(255,255,255,0.1);
-  margin-bottom:20px;
-}
-.hero img{
-  width:100%;
-  display:block;
-}
+    body[data-theme="colorful"] {
+      --bg: radial-gradient(circle at top left, #0f172a 0, #020617 35%, #4f46e5 100%);
+      --bg-soft: rgba(15, 23, 42, 0.7);
+      --surface: rgba(15, 23, 42, 0.9);
+      --border: rgba(129, 140, 248, 0.7);
+      --text-main: #e5e7eb;
+      --text-muted: #cbd5f5;
+      --accent-1: #22d3ee;
+      --accent-2: #f97316;
+      --accent-3: #a855f7;
+    }
 
-/* ---------- SONG SECTION ---------- */
-.song-box{
-  background:var(--surface);
-  padding:14px;
-  border-radius:16px;
-  border:1px solid rgba(255,255,255,0.1);
-  margin-bottom:20px;
-}
-.song-title{
-  font-family:Orbitron;
-  letter-spacing:0.12em;
-  color:var(--muted);
-  margin-bottom:6px;
-}
-.song-btn{
-  padding:8px 12px;
-  margin-right:6px;
-  border:none;
-  border-radius:999px;
-  background:rgba(255,255,255,0.1);
-  color:var(--text);
-  cursor:pointer;
-}
-.song-bar{
-  width:100%;
-  margin-top:10px;
-}
+    /* Character accent themes */
+    body[data-character-theme="doraemon"] {
+      --accent-1: #38bdf8;
+      --accent-2: #0ea5e9;
+      --accent-3: #f97316;
+    }
+    body[data-character-theme="nobita"] {
+      --accent-1: #facc15;
+      --accent-2: #fb923c;
+      --accent-3: #22c55e;
+    }
+    body[data-character-theme="shizuka"] {
+      --accent-1: #f472b6;
+      --accent-2: #e879f9;
+      --accent-3: #38bdf8;
+    }
+    body[data-character-theme="gian"] {
+      --accent-1: #fb923c;
+      --accent-2: #ea580c;
+      --accent-3: #facc15;
+    }
+    body[data-character-theme="suneo"] {
+      --accent-1: #22c55e;
+      --accent-2: #0ea5e9;
+      --accent-3: #eab308;
+    }
 
-/* ---------- CHARACTER GRID ---------- */
-.char-section-title{
-  font-family:Orbitron;
-  letter-spacing:0.15em;
-  margin-bottom:10px;
-}
-.char-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-  gap:14px;
-}
-.card{
-  background:var(--card);
-  border-radius:16px;
-  border:1px solid rgba(255,255,255,0.1);
-  padding:12px;
-}
-.card img{
-  width:100%;
-  border-radius:12px;
-}
-.card h3{
-  font-family:Orbitron;
-  font-size:1rem;
-}
-.voice-btn{
-  margin-top:6px;
-  width:100%;
-  padding:8px;
-  border:none;
-  border-radius:20px;
-  background:rgba(255,255,255,0.08);
-  color:var(--text);
-  cursor:pointer;
-}
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* ---------- FUN FACT POPUP ---------- */
-.fact-popup{
-  position:fixed;
-  bottom:80px;
-  left:50%;
-  transform:translateX(-50%);
-  background:var(--surface);
-  padding:12px 18px;
-  border-radius:14px;
-  border:1px solid rgba(255,255,255,0.1);
-  opacity:0;
-  transition:0.3s ease;
-  pointer-events:none;
-  z-index:50;
-}
-.fact-popup.show{
-  opacity:1;
-  pointer-events:auto;
-}
+    body {
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 16px;
+      transition: background 260ms ease, color 260ms ease;
+    }
 
-/* ---------- GADGET POPUP ---------- */
-.gadget-backdrop{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.6);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:40;
-}
-.gadget-backdrop.active{display:flex;}
-.gadget-box{
-  background:var(--surface);
-  padding:16px;
-  border-radius:18px;
-  border:1px solid rgba(255,255,255,0.1);
-  width:82%;
-  max-width:330px;
-  animation:pop 0.25s ease;
-}
-@keyframes pop{
-  0%{transform:scale(0.8); opacity:0;}
-  100%{transform:scale(1); opacity:1;}
-}
-.gadget-box img{
-  width:100%;
-  border-radius:12px;
-  margin-bottom:10px;
-}
-.close-gadget{
-  margin-top:8px;
-  width:100%;
-  padding:8px;
-  background:rgba(255,255,255,0.12);
-  border:none;
-  border-radius:14px;
-  cursor:pointer;
-  color:var(--text);
-}
+    main { max-width: 1100px; margin: 0 auto; position: relative; z-index: 2; }
 
-/* ---------- QUIZ ---------- */
-.quiz-box{
-  background:var(--surface);
-  border:1px solid rgba(255,255,255,0.1);
-  border-radius:16px;
-  padding:16px;
-  margin-top:20px;
-}
-.quiz-question{margin-bottom:14px;}
-.quiz-submit{
-  padding:10px 16px;
-  border:none;
-  border-radius:14px;
-  margin-top:10px;
-  background:var(--accent);
-  cursor:pointer;
-  color:#000;
-}
+    /* Particle background */
+    #particleCanvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.35;
+    }
 
-/* ---------- FOOTER ---------- */
-footer{
-  margin-top:20px;
-  text-align:center;
-  color:var(--muted);
-}
-.heart{
-  animation:beat 1.2s infinite;
-}
-@keyframes beat{
-  0%,100%{transform:scale(1);}
-  50%{transform:scale(1.3);}
-}
-</style>
+    .glow-orb {
+      position: fixed;
+      pointer-events: none;
+      inset: auto auto 10% 5%;
+      width: 220px;
+      height: 220px;
+      border-radius: 999px;
+      filter: blur(70px);
+      opacity: 0.6;
+      background: radial-gradient(circle, var(--accent-1), transparent 60%);
+      mix-blend-mode: screen;
+      z-index: 1;
+      animation: orbFloat 18s ease-in-out infinite;
+    }
+
+    @keyframes orbFloat {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(40px, -40px); }
+    }
+
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 3;
+    }
+
+    .brand {
+      font-family: "Orbitron", system-ui;
+      font-size: 1.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: linear-gradient(120deg, rgba(56, 189, 248, 0.16), rgba(168, 85, 247, 0.06));
+      backdrop-filter: blur(12px);
+      white-space: nowrap;
+    }
+
+    .header-right {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .theme-toggle { position: relative; display: inline-block; font-size: 0.8rem; }
+
+    .theme-toggle-button {
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-soft);
+      padding: 6px 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      backdrop-filter: blur(10px);
+      transition: background 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 120ms ease;
+    }
+
+    .theme-toggle-button:hover {
+      border-color: var(--accent-1);
+      box-shadow: 0 0 14px rgba(56, 189, 248, 0.3);
+      transform: translateY(-1px);
+    }
+
+    .theme-label { opacity: 0.8; }
+    .theme-value { font-weight: 600; color: var(--text-main); }
+    .theme-chevron { font-size: 0.7rem; opacity: 0.8; }
+
+    .theme-menu {
+      position: absolute;
+      right: 0;
+      margin-top: 6px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      padding: 4px;
+      min-width: 190px;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.7);
+      opacity: 0;
+      transform: translateY(-4px);
+      pointer-events: none;
+      transition: opacity 160ms ease, transform 160ms ease;
+      z-index: 20;
+    }
+
+    .theme-toggle.open .theme-menu {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .theme-menu-group-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-muted);
+      padding: 4px 6px 2px;
+      opacity: 0.8;
+    }
+
+    .theme-menu button {
+      width: 100%;
+      border: none;
+      background: transparent;
+      border-radius: 10px;
+      padding: 7px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      cursor: pointer;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .theme-menu button span.dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--border);
+    }
+
+    .theme-menu button[data-theme-select="dark"] span.dot { background: #020617; }
+    .theme-menu button[data-theme-select="bright"] span.dot { background: #f9fafb; }
+    .theme-menu button[data-theme-select="colorful"] span.dot { background: linear-gradient(120deg, #22d3ee, #a855f7); }
+
+    .theme-menu button:hover {
+      background: rgba(148, 163, 184, 0.12);
+      color: var(--text-main);
+    }
+
+    .theme-menu button.active {
+      background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
+      color: #020617;
+    }
+
+    .theme-menu button.active span.dot {
+      box-shadow: 0 0 8px rgba(15, 23, 42, 0.7);
+    }
+
+    .small-button {
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      padding: 6px 10px;
+      font-size: 0.75rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      cursor: pointer;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 150ms ease, border-color 150ms ease, transform 120ms ease, box-shadow 150ms ease;
+    }
+
+    .small-button:hover,
+    .small-button.active {
+      background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
+      color: #020617;
+      border-color: transparent;
+      box-shadow: 0 0 14px rgba(56, 189, 248, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .small-button span.icon {
+      font-size: 0.8rem;
+    }
+
+    .hero-image { margin-bottom: 18px; }
+
+    .hero-frame {
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      background: var(--bg-soft);
+      padding: 10px;
+      overflow: hidden;
+      box-shadow: 0 14px 40px rgba(15, 23, 42, 0.6);
+    }
+
+    .hero-frame-inner { border-radius: 18px; overflow: hidden; position: relative; }
+
+    .hero-frame img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    /* Song panel */
+    .song-panel {
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      margin-bottom: 26px;
+      padding: 14px 14px 12px;
+      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.5);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .song-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .song-title {
+      font-family: "Orbitron", system-ui;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+    }
+
+    .song-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .song-button {
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-soft);
+      padding: 6px 11px;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-main);
+      transition: background 150ms ease, border-color 150ms ease, box-shadow 150ms ease, transform 120ms ease;
+    }
+
+    .song-button span.icon { font-size: 0.8rem; }
+
+    .song-button:hover {
+      background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
+      border-color: transparent;
+      color: #020617;
+      box-shadow: 0 0 14px rgba(56, 189, 248, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .song-speed {
+      border-radius: 999px;
+      border: 1px dashed var(--border);
+      background: transparent;
+      padding: 4px 10px;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .song-bar {
+      width: 100%;
+      -webkit-appearance: none;
+      appearance: none;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.4);
+      outline: none;
+    }
+
+    .song-bar::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
+      box-shadow: 0 0 8px rgba(56, 189, 248, 0.7);
+      cursor: pointer;
+      border: none;
+    }
+
+    section { margin-bottom: 26px; }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .section-title {
+      font-family: "Orbitron", system-ui;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title::before {
+      content: "";
+      width: 40px;
+      height: 1px;
+      border-radius: 999px;
+      background: linear-gradient(to right, var(--accent-1), transparent);
+    }
+
+    .character-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+    }
+
+    .character-card {
+      border-radius: var(--card-radius);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.4);
+      transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+      transform-origin: center bottom;
+    }
+
+    .character-card:hover {
+      transform: translateY(-6px) rotate3d(1, 1, 0, 4deg) scale(1.02);
+      box-shadow: 0 22px 40px rgba(15, 23, 42, 0.7);
+      border-color: var(--accent-1);
+    }
+
+    .character-card.playing {
+      border-color: var(--accent-1);
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.8), 0 0 28px rgba(168, 85, 247, 0.5);
+    }
+
+    .character-image {
+      width: 100%;
+      border-radius: 14px;
+      object-fit: cover;
+      background: radial-gradient(circle at top, rgba(148, 163, 184, 0.2), transparent 60%);
+      min-height: 140px;
+    }
+
+    .character-name {
+      font-family: "Orbitron", system-ui;
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .character-role { font-size: 0.8rem; color: var(--text-muted); }
+
+    .voice-button {
+      margin-top: 4px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      padding: 6px 10px;
+      font-size: 0.8rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.15), transparent 60%);
+      color: var(--text-main);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background 160ms ease, transform 120ms ease, box-shadow 160ms ease, border-color 160ms ease;
+    }
+
+    .voice-button span.icon {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+    }
+
+    .voice-button:hover {
+      background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
+      color: #020617;
+      border-color: transparent;
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.6);
+      transform: translateY(-1px);
+    }
+
+    /* when playing: just subtle highlight, no animation */
+    .voice-button.playing {
+      background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
+      color: #020617;
+      border-color: transparent;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.5);
+    }
+
+    .info-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    @media (min-width: 800px) {
+      .info-grid {
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      }
+    }
+
+    .panel {
+      border-radius: var(--card-radius);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      padding: 16px;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.45);
+    }
+
+    .panel h3 {
+      font-family: "Orbitron", system-ui;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .panel p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .character-info-list {
+      display: grid;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .character-info-item h4 {
+      font-size: 0.9rem;
+      margin-bottom: 3px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    /* Quiz */
+    .quiz-panel {
+      border-radius: var(--card-radius);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      padding: 16px;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.45);
+    }
+
+    .quiz-progress {
+      margin-bottom: 10px;
+    }
+
+    .quiz-progress-text {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .quiz-progress-bar {
+      width: 100%;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.3);
+      overflow: hidden;
+      margin-bottom: 4px;
+    }
+
+    .quiz-progress-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: inherit;
+      background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
+      transition: width 180ms ease;
+    }
+
+    .quiz-best {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .quiz-question {
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed rgba(148, 163, 184, 0.45);
+    }
+
+    .quiz-question:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .quiz-question-text {
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+    }
+
+    .quiz-options {
+      display: grid;
+      gap: 4px;
+      font-size: 0.86rem;
+    }
+
+    .quiz-options label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .quiz-options input[type="radio"] { accent-color: var(--accent-1); }
+
+    .quiz-feedback {
+      font-size: 0.8rem;
+      margin-top: 3px;
+      min-height: 14px;
+    }
+
+    .quiz-feedback.correct { color: #22c55e; }
+    .quiz-feedback.incorrect { color: #f97373; }
+
+    .quiz-submit,
+    .quiz-next {
+      margin-top: 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      padding: 7px 14px;
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .quiz-submit {
+      background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
+      color: #020617;
+    }
+
+    .quiz-next {
+      background: transparent;
+      color: var(--text-muted);
+    }
+
+    .quiz-next:hover {
+      background: rgba(148, 163, 184, 0.15);
+    }
+
+    .quiz-result {
+      margin-top: 8px;
+      font-size: 0.9rem;
+      color: var(--text-main);
+    }
+
+    .hidden { display: none; }
+
+    /* Gadget popup */
+    .gadget-popup-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 30;
+    }
+
+    .gadget-popup-backdrop.active {
+      display: flex;
+    }
+
+    .gadget-popup {
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      padding: 16px;
+      max-width: 360px;
+      width: 90%;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.8);
+      transform: scale(0.9);
+      opacity: 0;
+      transform-origin: center;
+      transition: transform 220ms ease, opacity 220ms ease;
+    }
+
+    .gadget-popup-backdrop.active .gadget-popup {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .gadget-image {
+      width: 100%;
+      border-radius: 14px;
+      margin-bottom: 8px;
+      object-fit: cover;
+      background: radial-gradient(circle at top, rgba(148, 163, 184, 0.25), transparent 60%);
+      min-height: 140px;
+    }
+
+    .gadget-title {
+      font-family: "Orbitron", system-ui;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .gadget-name {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .gadget-description {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .gadget-close {
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: transparent;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      cursor: pointer;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .gadget-close:hover {
+      background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
+      color: #020617;
+      border-color: transparent;
+    }
+
+    /* Fun fact toast */
+    .fact-toast {
+      position: fixed;
+      bottom: 80px; /* moved up so it's easier to see */
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--surface);
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      padding: 8px 14px;
+      font-size: 0.8rem;
+      color: var(--text-main);
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.7);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 220ms ease, transform 220ms ease;
+      z-index: 40;
+      max-width: 90%;
+      text-align: center;
+    }
+
+    .fact-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    footer {
+      margin-top: 20px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--border);
+      font-size: 0.9rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .footer-credit {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+    }
+
+    .footer-credit .heart {
+      display: inline-block;
+      animation: heartBeat 1.3s ease-in-out infinite;
+    }
+
+    @keyframes heartBeat {
+      0%, 100% { transform: scale(1); }
+      25% { transform: scale(1.25); }
+      50% { transform: scale(0.92); }
+      75% { transform: scale(1.15); }
+    }
+
+    /* Smooth section reveal */
+    .reveal-section {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 450ms ease, transform 450ms ease;
+    }
+
+    .reveal-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Mobile tweaks for header buttons */
+    @media (max-width: 600px) {
+      .brand {
+        font-size: 1.3rem;
+        letter-spacing: 0.14em;
+        padding: 6px 10px;
+      }
+      .header-right {
+        gap: 6px;
+      }
+      .small-button,
+      .theme-toggle-button {
+        padding: 4px 8px;
+        font-size: 0.68rem;
+        letter-spacing: 0.12em;
+      }
+      .theme-value {
+        max-width: 90px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  </style>
 </head>
+<body data-theme="dark" data-character-theme="doraemon">
+  <canvas id="particleCanvas"></canvas>
+  <div class="glow-orb"></div>
 
-<body>
-
-<!-- SLIDE MENU -->
-<div class="menu-panel" id="menuPanel">
-  <div class="menu-title">OPTIONS</div>
-  <div class="menu-option" data-theme="dark">Dark Theme</div>
-  <div class="menu-option" data-theme="bright">Light Theme</div>
-  <div class="menu-option" data-theme="colorful">Colorful Theme</div>
-  <div class="menu-option" id="ambientToggle">Toggle Background Music</div>
-</div>
-
-<!-- HEADER -->
-<div class="topbar">
-  <div class="brand">Doraemon</div>
-  <button class="menu-btn" id="menuBtn">☰</button>
-</div>
-
-<!-- HERO -->
-<div class="hero">
-  <img src="images/doraemon-group.jpg" />
-</div>
-
-<!-- SONG SECTION -->
-<div class="song-box">
-  <div class="song-title">Doraemon Theme Songs</div>
-  <button class="song-btn" id="playTheme">Play Theme</button>
-  <button class="song-btn" id="playSong2">Doraemon Song</button>
-  <button class="song-btn" id="stopSong">Stop</button>
-  <br>
-  <input type="range" id="seekBar" class="song-bar" min="0" max="0" value="0">
-</div>
-
-<!-- CHARACTERS -->
-<div class="char-section-title">Characters</div>
-
-<button class="menu-btn" id="gadgetBtn">Random Gadget</button>
-<button class="menu-btn" id="factBtn">Fun Fact</button>
-<button class="menu-btn" id="quizScroll">Quiz</button>
-
-<div class="char-grid">
-  <div class="card">
-    <img src="images/doraemon.png">
-    <h3>Doraemon</h3>
-    <p>Robot cat from the future.</p>
-    <button class="voice-btn" data-voice="doraemon">Play Voice</button>
-    <audio id="voice-doraemon" src="audio/doraemon.mp3"></audio>
+  <!-- Gadget popup -->
+  <div class="gadget-popup-backdrop" id="gadgetBackdrop">
+    <div class="gadget-popup">
+      <img id="gadgetImage" class="gadget-image" src="" alt="" />
+      <div class="gadget-title">Random Gadget</div>
+      <div class="gadget-name" id="gadgetName"></div>
+      <div class="gadget-description" id="gadgetDescription"></div>
+      <button class="gadget-close" id="gadgetClose">Close</button>
+    </div>
   </div>
 
-  <div class="card">
-    <img src="images/nobita.png">
-    <h3>Nobita</h3>
-    <p>Lazy but kind-hearted.</p>
-    <button class="voice-btn" data-voice="nobita">Play Voice</button>
-    <audio id="voice-nobita" src="audio/nobita.mp3"></audio>
-  </div>
+  <!-- Fun fact toast -->
+  <div class="fact-toast" id="funFactToast"></div>
 
-  <div class="card">
-    <img src="images/shizuka.png">
-    <h3>Shizuka</h3>
-    <p>Smart & gentle.</p>
-    <button class="voice-btn" data-voice="shizuka">Play Voice</button>
-    <audio id="voice-shizuka" src="audio/shizuka.mp3"></audio>
-  </div>
+  <main>
+    <header class="top-bar reveal-section">
+      <div class="brand">Doraemon</div>
 
-  <div class="card">
-    <img src="images/gian.png">
-    <h3>Gian</h3>
-    <p>Strong & loud.</p>
-    <button class="voice-btn" data-voice="gian">Play Voice</button>
-    <audio id="voice-gian" src="audio/gian.mp3"></audio>
-  </div>
+      <div class="header-right">
+        <button class="small-button" id="ambientToggle">
+          <span class="icon">🔊</span><span>Background</span>
+        </button>
 
-  <div class="card">
-    <img src="images/suneo.png">
-    <h3>Suneo</h3>
-    <p>Stylish & rich.</p>
-    <button class="voice-btn" data-voice="suneo">Play Voice</button>
-    <audio id="voice-suneo" src="audio/suneo.mp3"></audio>
-  </div>
-</div>
+        <div class="theme-toggle" id="themeToggle">
+          <button class="theme-toggle-button" id="themeToggleButton">
+            <span class="theme-label">Theme</span>
+            <span class="theme-value" id="currentThemeLabel">Dark · Doraemon</span>
+            <span class="theme-chevron">▾</span>
+          </button>
+          <div class="theme-menu" id="themeMenu">
+            <div class="theme-menu-group-label">Base Theme</div>
+            <button data-theme-select="dark" class="active">
+              <span>Dark</span><span class="dot"></span>
+            </button>
+            <button data-theme-select="bright">
+              <span>Light</span><span class="dot"></span>
+            </button>
+            <button data-theme-select="colorful">
+              <span>Colorful</span><span class="dot"></span>
+            </button>
 
-<!-- GADGET POPUP -->
-<div class="gadget-backdrop" id="gadgetPopup">
-  <div class="gadget-box">
-    <img id="gadgetImg">
-    <h3 id="gadgetName"></h3>
-    <p id="gadgetDesc"></p>
-    <button class="close-gadget" id="closeGadget">Close</button>
-  </div>
-</div>
+            <div class="theme-menu-group-label">Character Theme</div>
+            <button data-character-theme-select="doraemon" class="active">
+              <span>Doraemon</span><span class="dot"></span>
+            </button>
+            <button data-character-theme-select="nobita">
+              <span>Nobita</span><span class="dot"></span>
+            </button>
+            <button data-character-theme-select="shizuka">
+              <span>Shizuka</span><span class="dot"></span>
+            </button>
+            <button data-character-theme-select="gian">
+              <span>Gian</span><span class="dot"></span>
+            </button>
+            <button data-character-theme-select="suneo">
+              <span>Suneo</span><span class="dot"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
 
-<!-- FUN FACT POPUP -->
-<div class="fact-popup" id="factPopup"></div>
+    <section class="hero-image reveal-section">
+      <div class="hero-frame">
+        <div class="hero-frame-inner">
+          <img src="images/doraemon-group.jpg" alt="Doraemon with Nobita, Shizuka, Gian, and Suneo" />
+        </div>
+      </div>
+    </section>
 
-<!-- QUIZ -->
-<div class="quiz-box" id="quizSection">
-  <h2 class="char-section-title">Quiz</h2>
-  <div class="quiz-question">Who is Nobita's best future friend?<br>
-    <label><input type="radio" name="q1" value="a"> Gian</label><br>
-    <label><input type="radio" name="q1" value="b"> Suneo</label><br>
-    <label><input type="radio" name="q1" value="c"> Doraemon</label><br>
-  </div>
+    <!-- Songs -->
+    <section class="reveal-section">
+      <div class="song-panel">
+        <div class="song-header">
+          <div class="song-title">Doraemon Theme Songs</div>
+          <div class="song-controls">
+            <button class="song-button" id="playSong">
+              <span class="icon">▶</span><span>Play Theme</span>
+            </button>
+            <button class="song-button" id="stopSong">
+              <span class="icon">■</span><span>Stop</span>
+            </button>
+            <button class="song-speed" id="speedToggle">
+              <span>Speed</span><span id="speedLabel">1x</span>
+            </button>
+            <button class="song-button" id="doraemonSongMain">
+              <span class="icon">♪</span><span>Doraemon Song</span>
+            </button>
+          </div>
+        </div>
+        <input type="range" id="songSeek" class="song-bar" min="0" max="0" value="0" step="0.01" />
+        <audio id="themeSong" src="audio/doraemon-theme.mp3"></audio>
+        <audio id="themeSong2" src="audio/doraemon-song.mp3"></audio>
+      </div>
+    </section>
 
-  <button class="quiz-submit" id="quizSubmit">Submit</button>
-  <p id="quizResult"></p>
-</div>
+    <!-- Characters -->
+    <section class="reveal-section">
+      <div class="section-header">
+        <h2 class="section-title">Characters</h2>
+        <div style="display:flex; gap:6px; flex-wrap:wrap;">
+          <button class="small-button" id="randomGadgetButton">
+            <span class="icon">★</span><span>Random Gadget</span>
+          </button>
+          <button class="small-button" id="funFactButton">
+            <span class="icon">✨</span><span>Fun Fact</span>
+          </button>
+          <button class="small-button" id="quizJump">
+            <span class="icon">?</span><span>Quiz</span>
+          </button>
+        </div>
+      </div>
 
-<footer>
-  Made With <span class="heart">❤️</span> By Avinash Gupta!
-</footer>
+      <div class="character-grid">
+        <article class="character-card" data-character="doraemon" id="doraemonCard">
+          <img class="character-image" src="images/doraemon.png" alt="Doraemon" />
+          <div>
+            <div class="character-name">Doraemon</div>
+            <div class="character-role">Robot cat from the 22nd century who helps Nobita with futuristic gadgets.</div>
+          </div>
+          <button class="voice-button" data-character="doraemon">
+            <span class="icon">▶</span><span>Play Voice</span>
+          </button>
+          <audio id="audio-doraemon" src="audio/doraemon.mp3"></audio>
+        </article>
 
-<!-- SONG AUDIO -->
-<audio id="theme1" src="audio/doraemon-theme.mp3"></audio>
-<audio id="theme2" src="audio/doraemon-song.mp3"></audio>
-<audio id="ambient" src="audio/background.mp3" loop></audio>
+        <article class="character-card" data-character="nobita">
+          <img class="character-image" src="images/nobita.png" alt="Nobita" />
+          <div>
+            <div class="character-name">Nobita</div>
+            <div class="character-role">A kind but lazy boy who often gets into trouble and relies on Doraemon.</div>
+          </div>
+          <button class="voice-button" data-character="nobita">
+            <span class="icon">▶</span><span>Play Voice</span>
+          </button>
+          <audio id="audio-nobita" src="audio/nobita.mp3"></audio>
+        </article>
 
-<script>
-/* ---------- SLIDE MENU ---------- */
-const menuBtn=document.getElementById("menuBtn");
-const menuPanel=document.getElementById("menuPanel");
-menuBtn.onclick=()=>menuPanel.classList.toggle("open");
+        <article class="character-card" data-character="shizuka">
+          <img class="character-image" src="images/shizuka.png" alt="Shizuka" />
+          <div>
+            <div class="character-name">Shizuka</div>
+            <div class="character-role">Smart, gentle, and supportive; Nobita’s close friend and his main crush.</div>
+          </div>
+          <button class="voice-button" data-character="shizuka">
+            <span class="icon">▶</span><span>Play Voice</span>
+          </button>
+          <audio id="audio-shizuka" src="audio/shizuka.mp3"></audio>
+        </article>
 
-/* ---------- THEMES ---------- */
-document.querySelectorAll("[data-theme]").forEach(opt=>{
-  opt.onclick=()=>{
-    document.body.style.background=
-      opt.dataset.theme==="bright"?"#f5f5f5":
-      opt.dataset.theme==="colorful"?"linear-gradient(135deg,#3b82f6,#ec4899)":
-      "#050816";
+        <article class="character-card" data-character="gian">
+          <img class="character-image" src="images/gian.png" alt="Gian" />
+          <div>
+            <div class="character-name">Gian</div>
+            <div class="character-role">Strong and loud, often bullies others but secretly cares about his friends.</div>
+          </div>
+          <button class="voice-button" data-character="gian">
+            <span class="icon">▶</span><span>Play Voice</span>
+          </button>
+          <audio id="audio-gian" src="audio/gian.mp3"></audio>
+        </article>
 
-    menuPanel.classList.remove("open");
-  };
-});
+        <article class="character-card" data-character="suneo">
+          <img class="character-image" src="images/suneo.png" alt="Suneo" />
+          <div>
+            <div class="character-name">Suneo</div>
+            <div class="character-role">Rich, stylish, and a show-off, but still part of the core friend group.</div>
+          </div>
+          <button class="voice-button" data-character="suneo">
+            <span class="icon">▶</span><span>Play Voice</span>
+          </button>
+          <audio id="audio-suneo" src="audio/suneo.mp3"></audio>
+        </article>
+      </div>
+    </section>
 
-/* ---------- BACKGROUND MUSIC ---------- */
-const ambient=document.getElementById("ambient");
-document.getElementById("ambientToggle").onclick=()=>{
-  ambient.paused?ambient.play():ambient.pause();
-};
+    <!-- Quiz -->
+    <section id="quizSection" class="reveal-section">
+      <div class="section-header">
+        <h2 class="section-title">Quiz</h2>
+      </div>
+      <div class="quiz-panel">
+        <div class="quiz-progress">
+          <div class="quiz-progress-text" id="quizProgressText">Answered 0 / 10</div>
+          <div class="quiz-progress-bar">
+            <div class="quiz-progress-fill" id="quizProgressFill"></div>
+          </div>
+          <div class="quiz-best" id="quizBestScore"></div>
+        </div>
 
-/* ---------- FUN FACTS ---------- */
-const facts=[
-  "Nobita sleeps in 0.93 seconds!",
-  "Doraemon loves Dorayaki.",
-  "Gian’s real name is Takeshi.",
-  "Suneo loves showing off!"
-];
-const factPopup=document.getElementById("factPopup");
-document.getElementById("factBtn").onclick=()=>{
-  factPopup.textContent=facts[Math.floor(Math.random()*facts.length)];
-  factPopup.classList.add("show");
-  setTimeout(()=>factPopup.classList.remove("show"),3000);
-};
+        <!-- questions q1 - q10 (unchanged) -->
+        <!-- I’m keeping all your questions exactly as you pasted -->
 
-/* ---------- GADGET POPUP ---------- */
-const gadgets=[
-  {name:"Anywhere Door",desc:"Teleports you anywhere!",img:"gadgets/anywhere-door.png"},
-  {name:"Take-copter",desc:"Lets you fly!",img:"gadgets/take-copter.png"},
-  {name:"Big Light",desc:"Makes anything giant!",img:"gadgets/big-light.png"},
-  {name:"Small Light",desc:"Shrinks anything!",img:"gadgets/small-light.png"},
-  {name:"Memory Bread",desc:"Helps you memorize text!",img:"gadgets/memory-bread.png"},
-  {name:"Translation Jelly",desc:"Lets you understand any language!",img:"gadgets/translation-jelly.png"}
-];
-const gadgetPopup=document.getElementById("gadgetPopup");
-document.getElementById("gadgetBtn").onclick=()=>{
-  let g=gadgets[Math.floor(Math.random()*gadgets.length)];
-  document.getElementById("gadgetName").textContent=g.name;
-  document.getElementById("gadgetDesc").textContent=g.desc;
-  document.getElementById("gadgetImg").src=g.img;
-  gadgetPopup.classList.add("active");
-};
-document.getElementById("closeGadget").onclick=()=>gadgetPopup.classList.remove("active");
-gadgetPopup.onclick=e=>{if(e.target===gadgetPopup)gadgetPopup.classList.remove("active")};
+        <div class="quiz-question" data-question-id="q1">
+          <p class="quiz-question-text">1. What is Doraemon&apos;s favourite food?</p>
+          <div class="quiz-options">
+            <label><input type="radio" name="q1" value="a" /> Sushi</label>
+            <label><input type="radio" name="q1" value="b" /> Dorayaki</label>
+            <label><input type="radio" name="q1" value="c" /> Pizza</label>
+            <label><input type="radio" name="q1" value="d" /> Ramen</label>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
 
-/* ---------- CHARACTER VOICES ---------- */
-document.querySelectorAll(".voice-btn").forEach(btn=>{
-  btn.onclick=()=>{
-    let id=btn.dataset.voice;
-    let audio=document.getElementById("voice-"+id);
-    audio.currentTime=0;
-    audio.play();
-  };
-});
+        <div class="quiz-question hidden" data-question-id="q2">
+          <p class="quiz-question-text">2. Who is Nobita&apos;s best friend from the future?</p>
+          <div class="quiz-options">
+            <label><input type="radio" name="q2" value="a" /> Gian</label>
+            <label><input type="radio" name="q2" value="b" /> Suneo</label>
+            <label><input type="radio" name="q2" value="c" /> Doraemon</label>
+            <label><input type="radio" name="q2" value="d" /> Shizuka</label>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
 
-/* ---------- SONG CONTROL ---------- */
-const t1=document.getElementById("theme1");
-const t2=document.getElementById("theme2");
-const seek=document.getElementById("seekBar");
-let currentSong=null;
+        <div class="quiz-question hidden" data-question-id="q3">
+          <p class="quiz-question-text">3. What special pocket does Doraemon have?</p>
+          <div class="quiz-options">
+            <label><input type="radio" name="q3" value="a" /> Magic pocket</label>
+            <label><input type="radio" name="q3" value="b" /> 4D pocket</label>
+            <label><input type="radio" name="q3" value="c" /> Secret pocket</label>
+            <label><input type="radio" name="q3" value="d" /> Time pocket</label>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
 
-function startSong(song){
-  if(currentSong){currentSong.pause();}
-  currentSong=song;
-  song.currentTime=0;
-  song.play();
-  updateSeek();
-}
-function updateSeek(){
-  if(!currentSong)return;
-  seek.max=currentSong.duration||0;
-  seek.value=currentSong.currentTime||0;
-  requestAnimationFrame(updateSeek);
-}
-seek.oninput=()=>{
-  if(currentSong)currentSong.currentTime=seek.value;
-};
+        <div class="quiz-question hidden" data-question-id="q4">
+          <p class="quiz-question-text">4. Which gadget helps Doraemon and friends fly?</p>
+          <div class="quiz-options">
+            <label><input type="radio" name="q4" value="a" /> Bamboo Copter (Take-copter)</label>
+            <label><input type="radio" name="q4" value="b" /> Magic Shoes</label>
+            <label><input type="radio" name="q4" value="c" /> Air Board</label>
+            <label><input type="radio" name="q4" value="d" /> Rocket Bag</label>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
 
-document.getElementById("playTheme").onclick=()=>startSong(t1);
-document.getElementById("playSong2").onclick=()=>startSong(t2);
-document.getElementById("stopSong").onclick=()=>{
-  if(currentSong){currentSong.pause();currentSong.currentTime=0;}
-};
+        <div class="quiz-question hidden" data-question-id="q5">
+          <p class="quiz-question-text">5. Who is usually scared of Gian&apos;s singing?</p>
+          <div class="quiz-options">
+            <label><input type="radio" name="q5" value="a" /> Only Suneo</label>
+            <label><input type="radio" name="q5" value="b" /> Only Nobita</label>
+            <label><input type="radio" name="q5" value="c" /> Almost everyone</label>
+            <label><input type="radio" name="q5" value="d" /> Only Doraemon</label>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
 
-/* ---------- QUIZ ---------- */
-document.getElementById("quizScroll").onclick=()=>{
-  document.getElementById("quizSection").scrollIntoView({behavior:"smooth"});
-};
-document.getElementById("quizSubmit").onclick=()=>{
-  let ans=document.querySelector("input[name='q1']:checked");
-  document.getElementById("quizResult").textContent=
-    ans?.value==="c" ? "Correct! You're awesome!" : "Oops, try again!";
-};
-</script>
+        <div class="quiz-question hidden" data-question-id="q6">
+          <p class="quiz-question-text">6. What is Shizuka known for?</p>
+          <div class="quiz-options">
+            <label><input type="radio" name="q6" value="a" /> Being lazy</label>
+            <label><input type="radio" name="q6" value="b" /> Being very strong</label>
+            <label><input type="radio" name="q6" value="c" /> Being kind and talented</label>
+            <label><input type="radio" name="q6" value="d" /> Being a prankster</label>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
 
+        <div class="quiz-question hidden" data-question-id="q7">
+          <p class="quiz-question-text">7. Which character loves to show off new toys and trips?</p>
+          <div class="quiz-options">
+            <label><input type="radio" name="q7" value="a" /> Nobita</label>
+            <label><input type="radio" name="q7" value="b" /> Doraemon</label>
+            <label><input type="radio" name="q7" value="c" /> Suneo</label>
+            <label><input type="radio" name="q7" value="d" /> Shizuka</label>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-question hidden" data-question-id="q8">
+          <p class="quiz-question-text">8. Which gadget lets them go anywhere by stepping through it?</p>
+          <div class="quiz-options">
+            <label><input type="radio" name="q8" value="a" /> Anywhere Door</label>
+            <label><input type="radio" name="q8" value="b" /> Magic Window</label>
+            <label><input type="radio" name="q8" value="c" /> Secret Tunnel</label>
+            <label><input type="radio" name="q8" value="d" /> Time Portal</label>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-question hidden" data-question-id="q9">
+          <p class="quiz-question-text">9. Why was Doraemon sent back in time to Nobita?</p>
+          <div class="quiz-options">
+            <label><input type="radio" name="q9" value="a" /> To take Nobita to the future</label>
+            <label><input type="radio" name="q9" value="b" /> To improve Nobita&apos;s future life</label>
+            <label><input type="radio" name="q9" value="c" /> To find a lost gadget</label>
+            <label><input type="radio" name="q9" value="d" /> To be Nobita&apos;s teacher</label>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-question hidden" data-question-id="q10">
+          <p class="quiz-question-text">10. Who often teams up with Gian but is smaller and stylish?</p>
+          <div class="quiz-options">
+            <label><input type="radio" name="q10" value="a" /> Suneo</label>
+            <label><input type="radio" name="q10" value="b" /> Nobita</label>
+            <label><input type="radio" name="q10" value="c" /> Doraemon</label>
+            <label><input type="radio" name="q10" value="d" /> Shizuka</label>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <button class="quiz-next" id="nextQuestionButton">Next Question</button>
+        <button class="quiz-submit hidden" id="quizSubmit">Submit Answers</button>
+        <div class="quiz-result" id="quizResult"></div>
+      </div>
+    </section>
+
+    <!-- Info -->
+    <section class="reveal-section">
+      <div class="section-header">
+        <h2 class="section-title">Information</h2>
+      </div>
+
+      <div class="info-grid">
+        <article class="panel">
+          <h3>What Is Doraemon?</h3>
+          <p>
+            Doraemon is a blue robotic cat from the 22nd century who travels back in time
+            to help a boy named Nobita. He carries a four-dimensional pocket filled with
+            futuristic gadgets that can change almost any situation.
+          </p>
+          <p>
+            The stories mix everyday school life with science fiction ideas, time travel,
+            flying gadgets, and fun adventures. Even with all the technology, the heart of
+            the series is friendship, kindness, and learning from mistakes.
+          </p>
+        </article>
+
+        <article class="panel">
+          <h3>Main Characters</h3>
+          <div class="character-info-list">
+            <div class="character-info-item">
+              <h4>Doraemon</h4>
+              <p>
+                A caring robot cat who tries to guide Nobita in the right direction. His gadgets
+                often solve problems but also create new ones when misused.
+              </p>
+            </div>
+            <div class="character-info-item">
+              <h4>Nobita</h4>
+              <p>
+                A clumsy and lazy boy who struggles with studies and sports. Despite his weaknesses,
+                he has a good heart and a strong sense of loyalty.
+              </p>
+            </div>
+            <div class="character-info-item">
+              <h4>Shizuka</h4>
+              <p>
+                Calm, kind, and talented. She encourages Nobita to do better and represents the balance
+                and kindness in the friend circle.
+              </p>
+            </div>
+            <div class="character-info-item">
+              <h4>Gian</h4>
+              <p>
+                The tough kid who loves singing and leading others. He can be rough but also shows bravery
+                and support when it truly matters.
+              </p>
+            </div>
+            <div class="character-info-item">
+              <h4>Suneo</h4>
+              <p>
+                A wealthy boy who likes to show off new toys and trips. He often teams up with Gian but
+                still joins the group adventures and learns important lessons.
+              </p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <footer class="reveal-section">
+      <div class="footer-credit">
+        <span>Made With <span class="heart">❤️</span> By Avinash Gupta!</span>
+      </div>
+    </footer>
+  </main>
+
+  <!-- background + ui sounds -->
+  <audio id="ambientAudio" src="audio/background.mp3" loop></audio>
+  <audio id="uiClick" src="audio/ui-click.mp3"></audio>
+  <audio id="quizSuccess" src="audio/quiz-success.mp3"></audio>
+
+  <script>
+    const body = document.body;
+
+    /* particles */
+    (function initParticles() {
+      const canvas = document.getElementById("particleCanvas");
+      const ctx = canvas.getContext("2d");
+      let particles = [];
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      resize();
+      window.addEventListener("resize", resize);
+
+      const count = 70;
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 1.4 + 0.4,
+          vx: (Math.random() - 0.5) * 0.25,
+          vy: (Math.random() - 0.5) * 0.25,
+          alpha: Math.random() * 0.6 + 0.2
+        });
+      }
+
+      function tick() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "rgba(148,163,184,0.6)";
+        particles.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0) p.x = canvas.width;
+          if (p.x > canvas.width) p.x = 0;
+          if (p.y < 0) p.y = canvas.height;
+          if (p.y > canvas.height) p.y = 0;
+          ctx.globalAlpha = p.alpha;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fill();
+        });
+        requestAnimationFrame(tick);
+      }
+      tick();
+    })();
+
+    const uiClickEl = document.getElementById("uiClick");
+    function playUIClick() {
+      if (!uiClickEl) return;
+      uiClickEl.currentTime = 0;
+      uiClickEl.play().catch(() => {});
+    }
+
+    /* ambient background */
+    const ambientAudio = document.getElementById("ambientAudio");
+    const ambientToggle = document.getElementById("ambientToggle");
+    let ambientOn = false;
+
+    ambientToggle.addEventListener("click", () => {
+      playUIClick();
+      if (!ambientAudio) return;
+      ambientOn = !ambientOn;
+      if (ambientOn) {
+        ambientAudio.play().catch(err => console.error("Ambient play error:", err));
+        ambientToggle.classList.add("active");
+      } else {
+        ambientAudio.pause();
+        ambientToggle.classList.remove("active");
+      }
+    });
+
+    /* theme dropdown */
+    const themeToggle = document.getElementById("themeToggle");
+    const themeToggleButton = document.getElementById("themeToggleButton");
+    const themeMenu = document.getElementById("themeMenu");
+    const themeButtons = themeMenu.querySelectorAll("[data-theme-select]");
+    const characterThemeButtons = themeMenu.querySelectorAll("[data-character-theme-select]");
+    const currentThemeLabel = document.getElementById("currentThemeLabel");
+
+    function refreshThemeLabel() {
+      const base = body.getAttribute("data-theme") || "dark";
+      const char = body.getAttribute("data-character-theme") || "doraemon";
+      const baseLabel =
+        base === "bright" ? "Light" :
+        base === "colorful" ? "Colorful" : "Dark";
+      const charLabel = char.charAt(0).toUpperCase() + char.slice(1);
+      currentThemeLabel.textContent = `${baseLabel} · ${charLabel}`;
+    }
+
+    function setTheme(theme) {
+      body.setAttribute("data-theme", theme);
+      themeButtons.forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.themeSelect === theme);
+      });
+      refreshThemeLabel();
+    }
+
+    function setCharacterTheme(theme) {
+      body.setAttribute("data-character-theme", theme);
+      characterThemeButtons.forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.characterThemeSelect === theme);
+      });
+      refreshThemeLabel();
+    }
+
+    themeToggleButton.addEventListener("click", (e) => {
+      e.stopPropagation();
+      themeToggle.classList.toggle("open");
+      playUIClick();
+    });
+
+    themeButtons.forEach(button => {
+      button.addEventListener("click", (e) => {
+        e.stopPropagation();
+        setTheme(button.dataset.themeSelect);
+        themeToggle.classList.remove("open");
+        playUIClick();
+      });
+    });
+
+    characterThemeButtons.forEach(button => {
+      button.addEventListener("click", (e) => {
+        e.stopPropagation();
+        setCharacterTheme(button.dataset.characterThemeSelect);
+        themeToggle.classList.remove("open");
+        playUIClick();
+      });
+    });
+
+    document.addEventListener("click", () => {
+      themeToggle.classList.remove("open");
+    });
+
+    setTheme("dark");
+    setCharacterTheme("doraemon");
+
+    /* character audio + glow */
+    let currentVoiceAudio = null;
+    let currentVoiceCard = null;
+    let currentVoiceButton = null;
+
+    function clearVoiceUI() {
+      if (currentVoiceCard) currentVoiceCard.classList.remove("playing");
+      if (currentVoiceButton) currentVoiceButton.classList.remove("playing");
+      currentVoiceCard = null;
+      currentVoiceButton = null;
+    }
+
+    function playVoice(id) {
+      if (currentVoiceAudio) {
+        currentVoiceAudio.pause();
+        currentVoiceAudio.currentTime = 0;
+      }
+      clearVoiceUI();
+
+      const audio = document.getElementById(`audio-${id}`);
+      const card = document.querySelector(`.character-card[data-character="${id}"]`);
+      const button = document.querySelector(`.voice-button[data-character="${id}"]`);
+      if (!audio || !card || !button) return;
+
+      currentVoiceAudio = audio;
+      currentVoiceCard = card;
+      currentVoiceButton = button;
+
+      card.classList.add("playing");
+      button.classList.add("playing");
+
+      audio.currentTime = 0;
+      audio.play().catch(err => console.error("Audio play error:", err));
+      audio.onended = () => {
+        if (audio === currentVoiceAudio) {
+          clearVoiceUI();
+          currentVoiceAudio = null;
+        }
+      };
+    }
+
+    document.querySelectorAll(".voice-button").forEach(button => {
+      button.addEventListener("click", () => {
+        const id = button.dataset.character;
+        playUIClick();
+        playVoice(id);
+      });
+    });
+
+    /* theme songs with shared seek bar for both songs */
+    const themeSong = document.getElementById("themeSong");
+    const themeSong2 = document.getElementById("themeSong2");
+    const playSongBtn = document.getElementById("playSong");
+    const stopSongBtn = document.getElementById("stopSong");
+    const speedToggleBtn = document.getElementById("speedToggle");
+    const speedLabel = document.getElementById("speedLabel");
+    const songSeek = document.getElementById("songSeek");
+    const doraemonSongMain = document.getElementById("doraemonSongMain");
+    let isFast = false;
+    let currentSong = themeSong;
+
+    function setCurrentSong(song) {
+      currentSong = song;
+      if (currentSong && currentSong.duration && !isNaN(currentSong.duration)) {
+        songSeek.max = currentSong.duration;
+      }
+    }
+
+    function stopAllSongs() {
+      [themeSong, themeSong2].forEach(s => {
+        if (s) {
+          s.pause();
+          s.currentTime = 0;
+          s.playbackRate = 1.0;
+        }
+      });
+      isFast = false;
+      speedLabel.textContent = "1x";
+      songSeek.value = 0;
+    }
+
+    function handleTimeUpdate(song) {
+      if (song !== currentSong) return;
+      if (!currentSong) return;
+      if (currentSong.duration && !isNaN(currentSong.duration)) {
+        songSeek.max = currentSong.duration;
+      }
+      songSeek.value = currentSong.currentTime;
+    }
+
+    if (themeSong) {
+      themeSong.addEventListener("loadedmetadata", () => {
+        if (currentSong === themeSong) setCurrentSong(themeSong);
+      });
+      themeSong.addEventListener("timeupdate", () => handleTimeUpdate(themeSong));
+    }
+    if (themeSong2) {
+      themeSong2.addEventListener("loadedmetadata", () => {
+        if (currentSong === themeSong2) setCurrentSong(themeSong2);
+      });
+      themeSong2.addEventListener("timeupdate", () => handleTimeUpdate(themeSong2));
+    }
+
+    playSongBtn.addEventListener("click", () => {
+      playUIClick();
+      if (!themeSong) return;
+      if (themeSong2) themeSong2.pause();
+      setCurrentSong(themeSong);
+      themeSong.play().catch(err => console.error("Theme play error:", err));
+    });
+
+    stopSongBtn.addEventListener("click", () => {
+      playUIClick();
+      stopAllSongs();
+    });
+
+    speedToggleBtn.addEventListener("click", () => {
+      playUIClick();
+      if (!currentSong) return;
+      isFast = !isFast;
+      currentSong.playbackRate = isFast ? 1.5 : 1.0;
+      speedLabel.textContent = isFast ? "1.5x" : "1x";
+    });
+
+    doraemonSongMain.addEventListener("click", () => {
+      playUIClick();
+      if (!themeSong2) return;
+      if (!themeSong2.paused) {
+        themeSong2.pause();
+        return;
+      }
+      if (themeSong) themeSong.pause();
+      setCurrentSong(themeSong2);
+      themeSong2.currentTime = 0;
+      themeSong2.play().catch(err => console.error("Second song play error:", err));
+    });
+
+    songSeek.addEventListener("input", () => {
+      if (!currentSong) return;
+      currentSong.currentTime = songSeek.value;
+    });
+
+    /* quiz jump */
+    const quizJump = document.getElementById("quizJump");
+    const quizSection = document.getElementById("quizSection");
+    quizJump.addEventListener("click", () => {
+      playUIClick();
+      quizSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    /* random gadget popup with images from gadgets/ folder */
+    const gadgets = [
+      {
+        name: "Anywhere Door",
+        description: "A door that opens to any place you imagine. Just think and step through.",
+        image: "gadgets/anywhere-door.png"
+      },
+      {
+        name: "Take-copter",
+        description: "A small propeller that lets you fly when attached to your head.",
+        image: "gadgets/take-copter.png"
+      },
+      {
+        name: "Time Machine",
+        description: "A machine hidden in Nobita's desk drawer that travels to past or future.",
+        image: "gadgets/time-machine.png"
+      },
+      {
+        name: "Small Light",
+        description: "A light that shrinks anything it shines on, from big buildings to tiny toys.",
+        image: "gadgets/small-light.png"
+      },
+      {
+        name: "Big Light",
+        description: "The opposite of the Small Light, it enlarges objects to huge sizes.",
+        image: "gadgets/big-light.png"
+      },
+      {
+        name: "Translation Jelly",
+        description: "A jelly that lets you understand and speak any language after eating it.",
+        image: "gadgets/translation-jelly.png"
+      },
+      {
+        name: "Memory Bread",
+        description: "Bread that copies written words into your memory when you eat it.",
+        image: "gadgets/memory-bread.png"
+      }
+    ];
+
+    const gadgetButton = document.getElementById("randomGadgetButton");
+    const gadgetBackdrop = document.getElementById("gadgetBackdrop");
+    const gadgetName = document.getElementById("gadgetName");
+    const gadgetDescription = document.getElementById("gadgetDescription");
+    const gadgetImage = document.getElementById("gadgetImage");
+    const gadgetClose = document.getElementById("gadgetClose");
+
+    function showRandomGadget() {
+      const g = gadgets[Math.floor(Math.random() * gadgets.length)];
+      gadgetName.textContent = g.name;
+      gadgetDescription.textContent = g.description;
+      if (g.image) {
+        gadgetImage.src = g.image;
+        gadgetImage.alt = g.name;
+        gadgetImage.style.display = "block";
+      } else {
+        gadgetImage.style.display = "none";
+      }
+      gadgetBackdrop.classList.add("active");
+    }
+
+    gadgetButton.addEventListener("click", () => {
+      playUIClick();
+      showRandomGadget();
+    });
+
+    gadgetClose.addEventListener("click", () => {
+      playUIClick();
+      gadgetBackdrop.classList.remove("active");
+    });
+
+    gadgetBackdrop.addEventListener("click", (e) => {
+      if (e.target === gadgetBackdrop) {
+        gadgetBackdrop.classList.remove("active");
+      }
+    });
+
+    /* Fun facts */
+    const funFacts = [
+      "Doraemon was originally yellow and had ears before a mouse bit them off.",
+      "Nobita can fall asleep in just 0.93 seconds.",
+      "Gian's real name is Takeshi Gouda.",
+      "Suneo loves showing off his new toys and overseas trips.",
+      "Doraemon is from the 22nd century and was sent to help Nobita's future.",
+      "Shizuka enjoys taking baths and playing the violin.",
+      "Doraemon's birthday is officially on September 3, 2112."
+    ];
+
+    const funFactButton = document.getElementById("funFactButton");
+    const funFactToast = document.getElementById("funFactToast");
+    let factTimeout = null;
+
+    function showFunFact() {
+      const fact = funFacts[Math.floor(Math.random() * funFacts.length)];
+      funFactToast.textContent = fact;
+      funFactToast.classList.add("show");
+      clearTimeout(factTimeout);
+      factTimeout = setTimeout(() => {
+        funFactToast.classList.remove("show");
+      }, 4500);
+    }
+
+    funFactButton.addEventListener("click", () => {
+      playUIClick();
+      showFunFact();
+    });
+
+    /* quiz logic */
+    const quizConfig = {
+      q1: { correct: "b", correctMessage: "Sweet choice! Dorayaki is perfectly right." },
+      q2: { correct: "c", correctMessage: "Yes! Doraemon is Nobita's best friend from the future." },
+      q3: { correct: "b", correctMessage: "Correct, the famous 4D pocket!" },
+      q4: { correct: "a", correctMessage: "Exactly, the Bamboo Copter makes everyone fly." },
+      q5: { correct: "c", correctMessage: "Right, almost everyone fears that voice." },
+      q6: { correct: "c", correctMessage: "Yes, Shizuka is kind and talented." },
+      q7: { correct: "c", correctMessage: "Correct, Suneo loves to show off." },
+      q8: { correct: "a", correctMessage: "Anywhere Door is spot on." },
+      q9: { correct: "b", correctMessage: "Right, he wants to improve Nobita's future." },
+      q10: { correct: "a", correctMessage: "Yes, stylish little Suneo!" }
+    };
+
+    const quizProgressText = document.getElementById("quizProgressText");
+    const quizProgressFill = document.getElementById("quizProgressFill");
+    const quizBestScoreEl = document.getElementById("quizBestScore");
+    const quizSubmit = document.getElementById("quizSubmit");
+    const quizResult = document.getElementById("quizResult");
+    const nextQuestionButton = document.getElementById("nextQuestionButton");
+    const quizSuccessEl = document.getElementById("quizSuccess");
+
+    function playQuizSuccess() {
+      if (!quizSuccessEl) return;
+      quizSuccessEl.currentTime = 0;
+      quizSuccessEl.play().catch(() => {});
+    }
+
+    const quizQuestions = Array.from(document.querySelectorAll(".quiz-question"));
+    let currentQuestionIndex = 0;
+
+    function showQuestion(index) {
+      quizQuestions.forEach((q, i) => {
+        q.classList.toggle("hidden", i !== index);
+      });
+      if (index === quizQuestions.length - 1) {
+        quizSubmit.classList.remove("hidden");
+        nextQuestionButton.classList.add("hidden");
+      } else {
+        quizSubmit.classList.add("hidden");
+        nextQuestionButton.classList.remove("hidden");
+      }
+    }
+
+    function updateQuizProgress() {
+      const total = Object.keys(quizConfig).length;
+      let answered = 0;
+      Object.keys(quizConfig).forEach(id => {
+        const selected = document.querySelector(`input[name='${id}']:checked`);
+        if (selected) answered++;
+      });
+      quizProgressText.textContent = `Answered ${answered} / ${total}`;
+      const percent = ((currentQuestionIndex + 1) / total) * 100;
+      quizProgressFill.style.width = `${percent}%`;
+    }
+
+    function loadBestScore() {
+      const best = localStorage.getItem("doraemonQuizBest");
+      if (best !== null) {
+        quizBestScoreEl.textContent = `Best score so far: ${best} / 10`;
+      } else {
+        quizBestScoreEl.textContent = "";
+      }
+    }
+
+    document.querySelectorAll(".quiz-question input[type='radio']").forEach(input => {
+      input.addEventListener("change", (e) => {
+        const questionEl = e.target.closest(".quiz-question");
+        const id = questionEl.dataset.questionId;
+        const config = quizConfig[id];
+        const feedback = questionEl.querySelector(".quiz-feedback");
+        if (!config || !feedback) return;
+        if (e.target.value === config.correct) {
+          feedback.textContent = config.correctMessage;
+          feedback.classList.add("correct");
+          feedback.classList.remove("incorrect");
+        } else {
+          feedback.textContent = "Not quite, but keep going!";
+          feedback.classList.remove("correct");
+          feedback.classList.add("incorrect");
+        }
+        updateQuizProgress();
+      });
+    });
+
+    nextQuestionButton.addEventListener("click", () => {
+      playUIClick();
+      const currentQuestion = quizQuestions[currentQuestionIndex];
+      const id = currentQuestion.dataset.questionId;
+      const selected = document.querySelector(`input[name='${id}']:checked`);
+      if (!selected) {
+        alert("Please select an answer first.");
+        return;
+      }
+      if (currentQuestionIndex < quizQuestions.length - 1) {
+        currentQuestionIndex++;
+        showQuestion(currentQuestionIndex);
+        updateQuizProgress();
+      }
+    });
+
+    quizSubmit.addEventListener("click", () => {
+      playUIClick();
+      let score = 0;
+      Object.entries(quizConfig).forEach(([id, cfg]) => {
+        const selected = document.querySelector(`input[name='${id}']:checked`);
+        if (selected && selected.value === cfg.correct) score++;
+      });
+
+      let rating;
+      if (score === 10) rating = "True Doraemon Fan! You know every gadget and friend.";
+      else if (score >= 8) rating = "Future Gadget Super Fan – almost perfect!";
+      else if (score >= 5) rating = "Casual Doraemon Viewer – keep watching more episodes.";
+      else if (score >= 2) rating = "You know a little. Doraemon is waiting for more adventures with you.";
+      else rating = "Please watch Doraemon! A whole world of gadgets is waiting.";
+
+      quizResult.textContent = `You scored ${score}/10 – ${rating}`;
+
+      const best = parseInt(localStorage.getItem("doraemonQuizBest") || "0", 10);
+      if (score > best) {
+        localStorage.setItem("doraemonQuizBest", score.toString());
+        loadBestScore();
+      }
+      if (score >= 8) {
+        playQuizSuccess();
+      }
+    });
+
+    showQuestion(currentQuestionIndex);
+    updateQuizProgress();
+    loadBestScore();
+
+    /* smooth section reveal */
+    const revealSections = document.querySelectorAll(".reveal-section");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    revealSections.forEach(sec => observer.observe(sec));
+  </script>
 </body>
 </html>
